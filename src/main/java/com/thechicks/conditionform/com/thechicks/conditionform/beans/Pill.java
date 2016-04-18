@@ -6,35 +6,27 @@ package com.thechicks.conditionform.com.thechicks.conditionform.beans;
 public class Pill {
 
     private String no;
-    private String mediKoName;
-    private String mediEnName;
-    private String imageUrl;
-    private String categoryWelfare;
+    private String medi_ko_name;
+    private String medi_en_name;
+    private String image_url;
+    private String category_welfare;
     private String assortment;
-    private String manufactureAssort;
-    private String manufactureAssortManufacturer;
-    private String insuranceCode;
-    private String pregnantRating;
-    private String ageProhibit;
-    private String shapeInfoAppearance;
-    private String shapeInfoFormulation;
-    private String shapeInfoShape;
-    private String shapeInfoColor;
-    private String shapeInfoIdmark;
-    private String ingredientInfo;
-    private String storagintMethod;
+    private String manufacture_assort;
+    private String manufacture_assort_manufacturer;
+    private String insurance_code;
+    private String pregnant_rating;
+    private String age_prohibit;
+    private String shape_info_appearance;
+    private String shape_info_formulation;
+    private String shape_info_shape;
+    private String shape_info_color;
+    private String shape_info_idmark;
+    private String ingredient_info;
+    private String storagint_method;
     private String efficacy;
     private String dosage;
     private String precaution;
 
-
-    public String getPrecaution() {
-        return precaution;
-    }
-
-    public void setPrecaution(String precaution) {
-        this.precaution = precaution;
-    }
 
     public String getNo() {
         return no;
@@ -44,36 +36,36 @@ public class Pill {
         this.no = no;
     }
 
-    public String getMediKoName() {
-        return mediKoName;
+    public String getMedi_ko_name() {
+        return medi_ko_name;
     }
 
-    public void setMediKoName(String mediKoName) {
-        this.mediKoName = mediKoName;
+    public void setMedi_ko_name(String medi_ko_name) {
+        this.medi_ko_name = medi_ko_name;
     }
 
-    public String getMediEnName() {
-        return mediEnName;
+    public String getMedi_en_name() {
+        return medi_en_name;
     }
 
-    public void setMediEnName(String mediEnName) {
-        this.mediEnName = mediEnName;
+    public void setMedi_en_name(String medi_en_name) {
+        this.medi_en_name = medi_en_name;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage_url() {
+        return image_url;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 
-    public String getCategoryWelfare() {
-        return categoryWelfare;
+    public String getCategory_welfare() {
+        return category_welfare;
     }
 
-    public void setCategoryWelfare(String categoryWelfare) {
-        this.categoryWelfare = categoryWelfare;
+    public void setCategory_welfare(String category_welfare) {
+        this.category_welfare = category_welfare;
     }
 
     public String getAssortment() {
@@ -84,100 +76,100 @@ public class Pill {
         this.assortment = assortment;
     }
 
-    public String getManufactureAssort() {
-        return manufactureAssort;
+    public String getManufacture_assort() {
+        return manufacture_assort;
     }
 
-    public void setManufactureAssort(String manufactureAssort) {
-        this.manufactureAssort = manufactureAssort;
+    public void setManufacture_assort(String manufacture_assort) {
+        this.manufacture_assort = manufacture_assort;
     }
 
-    public String getManufactureAssortManufacturer() {
-        return manufactureAssortManufacturer;
+    public String getManufacture_assort_manufacturer() {
+        return manufacture_assort_manufacturer;
     }
 
-    public void setManufactureAssortManufacturer(String manufactureAssortManufacturer) {
-        this.manufactureAssortManufacturer = manufactureAssortManufacturer;
+    public void setManufacture_assort_manufacturer(String manufacture_assort_manufacturer) {
+        this.manufacture_assort_manufacturer = manufacture_assort_manufacturer;
     }
 
-    public String getInsuranceCode() {
-        return insuranceCode;
+    public String getInsurance_code() {
+        return insurance_code;
     }
 
-    public void setInsuranceCode(String insuranceCode) {
-        this.insuranceCode = insuranceCode;
+    public void setInsurance_code(String insurance_code) {
+        this.insurance_code = insurance_code;
     }
 
-    public String getPregnantRating() {
-        return pregnantRating;
+    public String getPregnant_rating() {
+        return pregnant_rating;
     }
 
-    public void setPregnantRating(String pregnantRating) {
-        this.pregnantRating = pregnantRating;
+    public void setPregnant_rating(String pregnant_rating) {
+        this.pregnant_rating = pregnant_rating;
     }
 
-    public String getAgeProhibit() {
-        return ageProhibit;
+    public String getAge_prohibit() {
+        return age_prohibit;
     }
 
-    public void setAgeProhibit(String ageProhibit) {
-        this.ageProhibit = ageProhibit;
+    public void setAge_prohibit(String age_prohibit) {
+        this.age_prohibit = age_prohibit;
     }
 
-    public String getShapeInfoAppearance() {
-        return shapeInfoAppearance;
+    public String getShape_info_appearance() {
+        return shape_info_appearance;
     }
 
-    public void setShapeInfoAppearance(String shapeInfoAppearance) {
-        this.shapeInfoAppearance = shapeInfoAppearance;
+    public void setShape_info_appearance(String shape_info_appearance) {
+        this.shape_info_appearance = shape_info_appearance;
     }
 
-    public String getShapeInfoFormulation() {
-        return shapeInfoFormulation;
+    public String getShape_info_formulation() {
+        return shape_info_formulation;
     }
 
-    public void setShapeInfoFormulation(String shapeInfoFormulation) {
-        this.shapeInfoFormulation = shapeInfoFormulation;
+    public void setShape_info_formulation(String shape_info_formulation) {
+        this.shape_info_formulation = shape_info_formulation;
     }
 
-    public String getShapeInfoShape() {
-        return shapeInfoShape;
+    public String getShape_info_shape() {
+        return shape_info_shape;
     }
 
-    public void setShapeInfoShape(String shapeInfoShape) {
-        this.shapeInfoShape = shapeInfoShape;
+    public void setShape_info_shape(String shape_info_shape) {
+        this.shape_info_shape = shape_info_shape;
     }
 
-    public String getShapeInfoColor() {
-        return shapeInfoColor;
+    public String getShape_info_color() {
+        return shape_info_color;
     }
 
-    public void setShapeInfoColor(String shapeInfoColor) {
-        this.shapeInfoColor = shapeInfoColor;
+    public void setShape_info_color(String shape_info_color) {
+        this.shape_info_color = shape_info_color;
     }
 
-    public String getShapeInfoIdmark() {
-        return shapeInfoIdmark;
+    public String getShape_info_idmark() {
+        return shape_info_idmark;
     }
 
-    public void setShapeInfoIdmark(String shapeInfoIdmark) {
-        this.shapeInfoIdmark = shapeInfoIdmark;
+    public void setShape_info_idmark(String shape_info_idmark) {
+        this.shape_info_idmark = shape_info_idmark;
     }
 
-    public String getIngredientInfo() {
-        return ingredientInfo;
+    public String getIngredient_info() {
+        return ingredient_info;
     }
 
-    public void setIngredientInfo(String ingredientInfo) {
-        this.ingredientInfo = ingredientInfo;
+    public void setIngredient_info(String ingredient_info) {
+        this.ingredient_info = ingredient_info;
     }
 
-    public String getStoragintMethod() {
-        return storagintMethod;
+    public String getStoragint_method() {
+        return storagint_method;
     }
 
-    public void setStoragintMethod(String storagintMethod) {
-        this.storagintMethod = storagintMethod;
+    public void setStoragint_method(String storagint_method) {
+        this.storagint_method = storagint_method;
     }
 
     public String getEfficacy() {
@@ -196,6 +188,13 @@ public class Pill {
         this.dosage = dosage;
     }
 
+    public String getPrecaution() {
+        return precaution;
+    }
+
+    public void setPrecaution(String precaution) {
+        this.precaution = precaution;
+    }
 
 
 }

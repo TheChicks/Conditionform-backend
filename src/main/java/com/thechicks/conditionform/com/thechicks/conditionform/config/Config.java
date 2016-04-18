@@ -18,3 +18,4 @@ public class Config {
         return registration;
     }
 }
+
