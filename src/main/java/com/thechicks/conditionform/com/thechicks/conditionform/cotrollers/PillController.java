@@ -19,24 +19,22 @@ public class PillController {
     @Autowired
     PillDao pillDao;
 
-    @RequestMapping("/pillInformations/all")
-    public List<Pill> getAllList() {
-        List<Pill> pillList = pillDao.findAll();
-        return pillList;
-    }
+//    @RequestMapping("/pillInformations/all")
+//    public List<Pill> getAllList() {
+//        List<Pill> pillList = pillDao.findAll();
+//        return pillList;
+//    }
 
-    @RequestMapping("/pillInformations/names/{mediName}")
+    @RequestMapping("/pillInformations/name/{mediName}")
     public List<Pill> getPillInfomationsByName(@PathVariable("mediName") String mediName ) {
         List<Pill> pillList = pillDao.getPillInfomationsByName(mediName);
         return pillList;
     }
 
-    @RequestMapping("/pillInformations/insuranceCodes/{insuranceCode}")
+    @RequestMapping("/pillInformations/insuranceCode/{insuranceCode}")
     public List<Pill> getPillInfomationsByInsuranceCode(@PathVariable("insuranceCode") String insuranceCode ) {
         List<Pill> pillList = pillDao.getPillInfomationsByInsuranceCode(insuranceCode);
         return pillList;
     }
-
-
 
 }

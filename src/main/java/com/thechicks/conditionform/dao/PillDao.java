@@ -13,13 +13,16 @@ import java.util.List;
 public interface PillDao {
 
 
-    @Select("SELECT * FROM PILL")
-    List<Pill> findAll();
+//    @Select("SELECT * FROM PILL")
+//    List<Pill> findAll();
 
     @Select("SELECT * FROM PILL WHERE medi_ko_name LIKE  CONCAT('%',#{mediName},'%')")
     List<Pill> getPillInfomationsByName(String mediName);
 
     @Select("SELECT * FROM PILL WHERE insurance_code LIKE CONCAT('%',#{insuranceCode},'%')")
     List<Pill> getPillInfomationsByInsuranceCode(String insuranceCode);
+
+
+
 
 }

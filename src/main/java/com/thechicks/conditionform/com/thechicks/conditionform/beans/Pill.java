@@ -8,6 +8,7 @@ public class Pill {
     private String no;
     private String medi_ko_name;
     private String medi_en_name;
+    private String link;
     private String image_url;
     private String category_welfare;
     private String assortment;
@@ -50,6 +51,14 @@ public class Pill {
 
     public void setMedi_en_name(String medi_en_name) {
         this.medi_en_name = medi_en_name;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getImage_url() {
