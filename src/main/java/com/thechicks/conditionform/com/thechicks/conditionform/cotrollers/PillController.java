@@ -17,7 +17,7 @@ import java.util.List;
 public class PillController {
 
     @Autowired
-    PillDao pillDao;
+    private PillDao pillDao;
 
 //    @RequestMapping("/pillInformations/all")
 //    public List<Pill> getAllList() {
