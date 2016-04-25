@@ -1,6 +1,6 @@
 package com.thechicks.conditionform.com.thechicks.conditionform.utils;
 
-import com.thechicks.conditionform.com.thechicks.conditionform.beans.Pill;
+import com.thechicks.conditionform.com.thechicks.conditionform.beans.PillSearchInfo;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -10,6 +10,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Leeseolhee on 2016. 4. 23..
  */
@@ -51,49 +54,56 @@ public class PillSearchXmlParser {
     }
 
 
-    public Pill getSearchPillLink(String input) {
+    public List<PillSearchInfo> getSearchPillSerchInfoList(String[] searchStr) {
 
-        Pill pill = new Pill();
-
-
-        try {
-
-            String addr = BASE_URL + PARAM.QUERY + URLEncoder.encode(input, "utf-8") + PARAM.START + START + PARAM.DISPLAY + DISPLAY;
-
-            URL url = new URL(addr);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestProperty("X-Naver-Client-Id", XNaverClientId); //발급받은 ID
-            connection.setRequestProperty("X-Naver-Client-Secret", naverAPIPW);// 발급받은 PW
-            connection.setRequestProperty("Content-Type", "application/xml"); // 받을요청타입
+        List<PillSearchInfo> pillSearchInfos = new ArrayList<PillSearchInfo>();
 
 
-            Document document = documentBuilder.parse(connection.getInputStream());
-            NodeList nodeList = document.getElementsByTagName("item");
+        for(int i = 0; i < searchStr.length; i++) {
+
+            PillSearchInfo pillSearchInfo = new PillSearchInfo();
+
+            try {
+
+                String addr = BASE_URL + PARAM.QUERY + URLEncoder.encode(searchStr[i], "utf-8") + PARAM.START + START + PARAM.DISPLAY + DISPLAY;
+
+                URL url = new URL(addr);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestProperty("X-Naver-Client-Id", XNaverClientId); //발급받은 ID
+                connection.setRequestProperty("X-Naver-Client-Secret", naverAPIPW);// 발급받은 PW
+                connection.setRequestProperty("Content-Type", "application/xml"); // 받을요청타입
 
 
-            for (Node node = nodeList.item(0).getFirstChild(); node != null; node = node.getNextSibling()) {
+                Document document = documentBuilder.parse(connection.getInputStream());
+                NodeList nodeList = document.getElementsByTagName("item");
 
-                String nodeName = node.getNodeName();
 
-                if(nodeName.equals("title")) {
-                    System.out.println(node.getTextContent());
-                    pill.setMedi_ko_name(node.getTextContent());
-                }else if(nodeName.equals("link")) {
-                    System.out.println(node.getTextContent());
-                    pill.setLink(node.getTextContent());
-                }else if(nodeName.equals("thumbnail")) {
-                    System.out.println(node.getTextContent());
-                    pill.setImage_url(node.getTextContent());
+                for (Node node = nodeList.item(0).getFirstChild(); node != null; node = node.getNextSibling()) {
+
+                    String nodeName = node.getNodeName();
+
+                    if (nodeName.equals("title")) {
+                        System.out.println(node.getTextContent());
+                        pillSearchInfo.setMediKoName(node.getTextContent());
+                    } else if (nodeName.equals("link")) {
+                        System.out.println(node.getTextContent());
+                        pillSearchInfo.setLink(node.getTextContent());
+                    } else if (nodeName.equals("thumbnail")) {
+                        System.out.println(node.getTextContent());
+                        pillSearchInfo.setImageUrl(node.getTextContent());
+                    }
                 }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
+            pillSearchInfos.add(pillSearchInfo);
 
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
-        return  pill;
+        return  pillSearchInfos;
 
     }
 
