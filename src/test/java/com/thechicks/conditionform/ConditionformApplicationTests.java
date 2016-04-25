@@ -1,5 +1,6 @@
 package com.thechicks.conditionform;
 
+import com.thechicks.conditionform.com.thechicks.conditionform.utils.PillDetailInfoHtmlParser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -17,6 +18,9 @@ public class ConditionformApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
+		PillDetailInfoHtmlParser p = new PillDetailInfoHtmlParser();
+		p.getDetailInfo("http://terms.naver.com/entry.nhn?docId=2156277&cid=51000&categoryId=51000");
 
 
 	}
