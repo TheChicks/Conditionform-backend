@@ -93,17 +93,17 @@ public class PillDetailInfoHtmlParser {
                     System.out.println(str2[1]);
                 }
             }
-
+//
             String context;
 
             //ingredient_info
-            context = doc.getElementById("TABLE_OF_CONTENT2").nextElementSibling().text();
+            context = getContext(doc, "TABLE_OF_CONTENT2", "stress");
             pill.setIngredient_info(context);
             System.out.println(context);
 
 
             //storagint_method
-            context = doc.getElementById("TABLE_OF_CONTENT3").nextElementSibling().text();
+            context = getContext(doc, "TABLE_OF_CONTENT3", "stress");
             pill.setStoragint_method(context);
             System.out.println(context);
 
@@ -138,35 +138,46 @@ public class PillDetailInfoHtmlParser {
         String context = "";
         Element element = doc.getElementById(startElementId);
         for(Element e = element.nextElementSibling(); !e.className().equals(breakElementClass); e = e.nextElementSibling()) {
+
             if(!e.className().equals("box_tbl"))
-                context += e.text();
+                context += removeTag(e.html());
+
         }
 
         return spaceLine(context);
     }
 
 
+    public String spaceLine(String context) {
 
-
-    public String spaceLine(String str) {
-
-        String splaceCharacter[] = {" 가. ", " 나. ", " 다. ", " 라. ", " 마. ",  " 바. ", " 사. ", " 아. ", " 자. ", " 차. ", " 카. ", " 타. ", " 파. ", " 하. ",
-        "①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨", "⑩", "⑪", "⑫", "⑬", "⑭", "⑮", "⑯", "⑰", "⑱", "⑲", "⑳", "●", "○"};
-
-        for(int num = 1; num <=20; num++) {
-            str = str.replace(" " + num + ". ", "\n\n" + num + ". ");
-            str = str.replace("(" + num + ") ", "\n" +"(" + num + ") ");
-            str = str.replace(" " +num + ") ", " "+"\n" + num + ") ");
-            str = str.replace("표 "+ num + ".", "\n" + "표 "+ num + ".");
-        }
-
-        for(String s : splaceCharacter)
-            str = str.replace(s, "\n" + s);
-
-        str = str.replace(". - ", "."+ "\n" + "- ");
-
-        return str;
+        return context.replace("<br>", "\n").replace("<br />", "\n");
     }
+
+    public String removeTag(String context) {
+        return  context.replace("</a>", "").replaceAll("<a[^>]*>", "").replace("&middot", "·");
+    }
+
+
+
+//    public String spaceLine(String str) {
+//
+//        String splaceCharacter[] = {" 가. ", " 나. ", " 다. ", " 라. ", " 마. ",  " 바. ", " 사. ", " 아. ", " 자. ", " 차. ", " 카. ", " 타. ", " 파. ", " 하. ",
+//        "①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨", "⑩", "⑪", "⑫", "⑬", "⑭", "⑮", "⑯", "⑰", "⑱", "⑲", "⑳", "●", "○"};
+//
+//        for(int num = 1; num <=20; num++) {
+//            str = str.replace(" " + num + ". ", "\n\n" + num + ". ");
+//            str = str.replace("(" + num + ") ", "\n" +"(" + num + ") ");
+//            str = str.replace(" " +num + ") ", " "+"\n" + num + ") ");
+//            str = str.replace("표 "+ num + ".", "\n" + "표 "+ num + ".");
+//        }
+//
+//        for(String s : splaceCharacter)
+//            str = str.replace(s, "\n" + s);
+//
+//        str = str.replace(". - ", "."+ "\n" + "- ");
+//
+//        return str;
+//    }
 
 
 }
