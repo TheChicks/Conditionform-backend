@@ -2,6 +2,7 @@ package com.thechicks.conditionform.dao;
 
 import com.thechicks.conditionform.com.thechicks.conditionform.beans.Pill;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Created by Leeseolhee on 2016. 4. 13..
  */
 
-
+@Repository
 public interface PillDao {
 
 
