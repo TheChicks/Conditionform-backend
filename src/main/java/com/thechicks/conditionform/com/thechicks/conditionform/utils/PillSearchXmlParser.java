@@ -1,6 +1,6 @@
 package com.thechicks.conditionform.com.thechicks.conditionform.utils;
 
-import com.thechicks.conditionform.com.thechicks.conditionform.beans.PillSearchInfo;
+import com.thechicks.conditionform.com.thechicks.conditionform.beans.Pill;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -54,14 +54,11 @@ public class PillSearchXmlParser {
     }
 
 
-    public List<PillSearchInfo> getSearchPillSerchInfoList(String[] searchStr) {
+    public List<Pill> getSearchPillSerchInfoList(String[] searchStr) {
 
-        List<PillSearchInfo> pillSearchInfos = new ArrayList<PillSearchInfo>();
-
+        List<Pill> pills = new ArrayList<Pill>();
 
         for(int i = 0; i < searchStr.length; i++) {
-
-            PillSearchInfo pillSearchInfo = new PillSearchInfo();
 
             try {
 
@@ -80,30 +77,30 @@ public class PillSearchXmlParser {
 
                 for (Node node = nodeList.item(0).getFirstChild(); node != null; node = node.getNextSibling()) {
 
+                    Pill pill = new Pill();
                     String nodeName = node.getNodeName();
 
                     if (nodeName.equals("title")) {
                         System.out.println(node.getTextContent());
-                        pillSearchInfo.setMediKoName(node.getTextContent());
+                        pill.setMedi_ko_name(node.getTextContent());
                     } else if (nodeName.equals("link")) {
                         System.out.println(node.getTextContent());
-                        pillSearchInfo.setLink(node.getTextContent());
+                        pill.setLink(node.getTextContent());
                     } else if (nodeName.equals("thumbnail")) {
                         System.out.println(node.getTextContent());
-                        pillSearchInfo.setImageUrl(node.getTextContent());
+                        pill.setImage_url(node.getTextContent());
                     }
-                }
 
+                    pills.add(pill);
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            pillSearchInfos.add(pillSearchInfo);
-
         }
 
-        return  pillSearchInfos;
+        return  pills;
 
     }
 
