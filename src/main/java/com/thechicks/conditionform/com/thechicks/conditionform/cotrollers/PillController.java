@@ -19,11 +19,11 @@ public class PillController {
     @Autowired
     private PillDao pillDao;
 
-//    @RequestMapping("/pillInformations/all")
-//    public List<Pill> getAllList() {
-//        List<Pill> pillList = pillDao.findAll();
-//        return pillList;
-//    }
+    @RequestMapping("/pillInformations/all")
+    public List<Pill> getAllList() {
+        List<Pill> pillList = pillDao.findAll();
+        return pillList;
+    }
 
     @RequestMapping("/pillInformations/name/{mediName}")
     public List<Pill> getPillInfomationsByName(@PathVariable("mediName") String mediName ) {
@@ -36,5 +36,6 @@ public class PillController {
         List<Pill> pillList = pillDao.getPillInfomationsByInsuranceCode(insuranceCode);
         return pillList;
     }
+
 
 }
