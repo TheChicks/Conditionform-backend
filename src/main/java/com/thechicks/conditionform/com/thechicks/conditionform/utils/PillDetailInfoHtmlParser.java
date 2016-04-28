@@ -9,6 +9,7 @@ import org.jsoup.select.Elements;
 /**
  * Created by Leeseolhee on 2016. 4. 23..
  */
+
 public class PillDetailInfoHtmlParser {
 
     public Pill getDetailInfo(String url) {

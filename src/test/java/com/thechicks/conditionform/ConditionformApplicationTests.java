@@ -18,11 +18,6 @@ public class ConditionformApplicationTests {
 
 	@Test
 	public void contextLoads() {
-
-		PillDetailInfoHtmlParser p = new PillDetailInfoHtmlParser();
-		p.getDetailInfo("http://terms.naver.com/entry.nhn?docId=2155629&cid=51000&categoryId=51000");
-
-
 	}
 
 

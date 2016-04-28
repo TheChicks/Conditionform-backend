@@ -32,52 +32,49 @@ public class PillSearchXmlParser {
         private static final String DISPLAY = "&display";
     }
 
-    private static PillSearchXmlParser instance;
-    private DocumentBuilder documentBuilder;
+//    private static PillSearchXmlParser instance;
 
 
-    public static PillSearchXmlParser getInstance() {
-        synchronized (PillSearchXmlParser.class) {
-            if (instance == null) {
-                instance = new PillSearchXmlParser();
-            }
-            return instance;
-        }
-    }
+//    public static PillSearchXmlParser getInstance() {
+//        synchronized (PillSearchXmlParser.class) {
+//            if (instance == null) {
+//                instance = new PillSearchXmlParser();
+//            }
+//            return instance;
+//        }
+//    }
+//
+//    private PillSearchXmlParser() {
+//        try {
+//
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    private PillSearchXmlParser() {
-        try {
-            documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-
-    public List<Pill> getSearchPillSerchInfoList(String[] searchStr) {
+    public static List<Pill> getSearchPillSerchInfoList(String searchStr) {
 
         List<Pill> pills = new ArrayList<Pill>();
 
-        for(int i = 0; i < searchStr.length; i++) {
+        try {
 
-            try {
+            String addr = BASE_URL + PARAM.QUERY + URLEncoder.encode(searchStr, "utf-8") + PARAM.START + START + PARAM.DISPLAY + DISPLAY;
 
-                String addr = BASE_URL + PARAM.QUERY + URLEncoder.encode(searchStr[i], "utf-8") + PARAM.START + START + PARAM.DISPLAY + DISPLAY;
+            URL url = new URL(addr);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("X-Naver-Client-Id", XNaverClientId); //발급받은 ID
+            connection.setRequestProperty("X-Naver-Client-Secret", naverAPIPW);// 발급받은 PW
+            connection.setRequestProperty("Content-Type", "application/xml"); // 받을요청타입
 
-                URL url = new URL(addr);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestProperty("X-Naver-Client-Id", XNaverClientId); //발급받은 ID
-                connection.setRequestProperty("X-Naver-Client-Secret", naverAPIPW);// 발급받은 PW
-                connection.setRequestProperty("Content-Type", "application/xml"); // 받을요청타입
+            DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document document = documentBuilder.parse(connection.getInputStream());
+            NodeList nodeList = document.getElementsByTagName("item");
 
-
-                Document document = documentBuilder.parse(connection.getInputStream());
-                NodeList nodeList = document.getElementsByTagName("item");
-
+                Pill pill = new Pill();
 
                 for (Node node = nodeList.item(0).getFirstChild(); node != null; node = node.getNextSibling()) {
 
-                    Pill pill = new Pill();
                     String nodeName = node.getNodeName();
 
                     if (nodeName.equals("title")) {
@@ -91,14 +88,16 @@ public class PillSearchXmlParser {
                         pill.setImage_url(node.getTextContent());
                     }
 
-                    pills.add(pill);
                 }
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                pills.add(pill);
 
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
 
         return  pills;
 

@@ -5,7 +5,7 @@ package com.thechicks.conditionform.com.thechicks.conditionform.beans;
  */
 public class Pill {
 
-    private String no;
+    private String id;
     private String medi_ko_name;
     private String medi_en_name;
     private String link;
@@ -29,12 +29,12 @@ public class Pill {
     private String precaution;
 
 
-    public String getNo() {
-        return no;
+    public String getId() {
+        return id;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getMedi_ko_name() {
