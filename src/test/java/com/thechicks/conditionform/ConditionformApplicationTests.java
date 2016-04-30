@@ -1,6 +1,6 @@
 package com.thechicks.conditionform;
 
-import com.thechicks.conditionform.com.thechicks.conditionform.utils.PillDetailInfoHtmlParser;
+import com.thechicks.conditionform.com.thechicks.conditionform.utils.PharmaceuticalSourcesCrawler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -18,6 +18,10 @@ public class ConditionformApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
+		PharmaceuticalSourcesCrawler.crawlPage("http://www.health.kr/drug_info/basedrug/show_detail.asp?idx=23642");
+		PharmaceuticalSourcesCrawler.crawlPage("http://www.health.kr/drug_info/basedrug/show_detail.asp?idx=8467");
+
 	}
 
 

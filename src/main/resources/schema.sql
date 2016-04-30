@@ -21,4 +21,35 @@ CREATE TABLE IF NOT EXISTS PILL (
       efficacy TEXT NULL,
       dosage TEXT NULL,
       precaution TEXT NULL
-       )DEFAULT CHARSET=utf8;
+)DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS PILLINFO (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      medi_ko_name TEXT NOT NULL,
+      medi_en_name TEXT NULL,
+      image_url TEXT NULL,
+      ingredient TEXT NULL,
+      assortment TEXT NULL,
+      unitariness_or_complexness TEXT NULL,
+      manufacture_assortment TEXT NULL,
+      seller TEXT NULL,
+      formulation TEXT NULL,
+      taking_route TEXT NULL,
+      welfare_category TEXT NULL,
+      insurance_code TEXT NULL,
+      combination_prohibition TEXT NULL,
+      age_prohibition TEXT NULL,
+      pregnant_prohibition TEXT NULL,
+      old_man_caution TEXT NULL,
+      volume_and_treatment_period_caution TEXT NULL,
+      division_caution TEXT NULL,
+      blood_donation_prohibition TEXT NULL,
+      shape_info TEXT NULL,
+      packing_unit TEXT NULL,
+      storagint_method TEXT NULL,
+      efficacy TEXT NULL,
+      dosage TEXT NULL,
+      precaution TEXT NULL,
+      medication_advice TEXT NULL NOT NULL
+)DEFAULT CHARSET=utf8;
