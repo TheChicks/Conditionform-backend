@@ -35,7 +35,6 @@ public class Pill {
     private String precaution; //사용상주의사항
     private String medication_guide; //복약지도
 
-
     public int getId() {
         return id;
     }
@@ -124,12 +123,12 @@ public class Pill {
         this.taking_route = taking_route;
     }
 
-    public String getWelfare_category() {
+    public String getKorea_food_and_drug_administration_category() {
         return korea_food_and_drug_administration_category;
     }
 
-    public void setWelfare_category(String welfare_category) {
-        this.korea_food_and_drug_administration_category = welfare_category;
+    public void setKorea_food_and_drug_administration_category(String korea_food_and_drug_administration_category) {
+        this.korea_food_and_drug_administration_category = korea_food_and_drug_administration_category;
     }
 
     public String getInsurance_code() {
@@ -144,24 +143,24 @@ public class Pill {
         return combination_taboo;
     }
 
-    public void setCombination_taboo(String combination_prohibition) {
-        this.combination_taboo= combination_prohibition;
+    public void setCombination_taboo(String combination_taboo) {
+        this.combination_taboo = combination_taboo;
     }
 
     public String getAge_taboo() {
         return age_taboo;
     }
 
-    public void setAge_taboo(String age_prohibition) {
-        this.age_taboo = age_prohibition;
+    public void setAge_taboo(String age_taboo) {
+        this.age_taboo = age_taboo;
     }
 
     public String getPregnant_taboo() {
         return pregnant_taboo;
     }
 
-    public void setPregnant_taboo(String pregnant_prohibition) {
-        this.pregnant_taboo = pregnant_prohibition;
+    public void setPregnant_taboo(String pregnant_taboo) {
+        this.pregnant_taboo = pregnant_taboo;
     }
 
     public String getOld_man_caution() {
@@ -251,5 +250,4 @@ public class Pill {
     public void setMedication_guide(String medication_guide) {
         this.medication_guide = medication_guide;
     }
-
 }
