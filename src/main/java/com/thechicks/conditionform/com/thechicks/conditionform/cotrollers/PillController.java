@@ -3,8 +3,8 @@ package com.thechicks.conditionform.com.thechicks.conditionform.cotrollers;
 import com.thechicks.conditionform.com.thechicks.conditionform.models.Pill;
 import com.thechicks.conditionform.dao.PillDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -28,13 +28,13 @@ public class PillController {
 
     }
 
-    @RequestMapping("/pillInformations/searchWord/{searchWord}")
-    public List<Pill> getPillInfomationsByName(@PathVariable("searchWord") String searchWord ) {
-        List<Pill> pills = pillDao.getPillInfomations(searchWord); // DB
+    @RequestMapping("/pillInformations/search")
+    public List<Pill> getPillInfomationsByName(@RequestParam("word") String word)  {
+        List<Pill> pills = pillDao.getPillInfomations(word); // DB
 
         if(pills.size() == 0) {
 //            PillDetailInfoHtmlParser pillDetailInfoHtmlParser = new PillDetailInfoHtmlParser();
-//            pills = PillSearchXmlParser.getSearchPillSerchInfoList(mediName);
+//            pills = PillSearchXmlParser.getSearchPillSerchInfoaList(mediName);
 //
 //            for(Pill p : pills) {
 //                System.out.println(p);
@@ -43,7 +43,7 @@ public class PillController {
 //                pillDao.insertPill(detailInfo);
 //            }
 
-            pills = pillDao.getPillInfomations(searchWord);
+            pills = pillDao.getPillInfomations(word);
             return pills;
         }
         else {
