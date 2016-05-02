@@ -1,33 +1,7 @@
 CREATE TABLE IF NOT EXISTS PILL (
      id INT PRIMARY KEY AUTO_INCREMENT,
-     medi_ko_name TEXT NOT NULL,
-     medi_en_name TEXT NULL,
-     link TEXT NULL,
-     image_url TEXT NULL,
-     category_welfare TEXT NULL,
-     assortment TEXT NULL,
-     manufacture_assort TEXT NULL,
-     manufacture_assort_manufacturer TEXT NULL,
-     insurance_code INT NULL,
-     pregnant_rating TEXT NULL,
-     age_prohibit TEXT NULL,
-     shape_Info_appearance TEXT NULL,
-     shape_info_formulation TEXT NULL,
-     shape_info_shape TEXT NULL,
-     shape_info_color TEXT NULL,
-     shape_info_idmark TEXT NULL,
-     ingredient_info TEXT NULL,
-     storagint_method TEXT NULL,
-     efficacy TEXT NULL,
-     dosage TEXT NULL,
-     precaution TEXT NULL
-)DEFAULT CHARSET=utf8;
-
-
-CREATE TABLE IF NOT EXISTS PILLINFO (
-     id INT PRIMARY KEY AUTO_INCREMENT,
-     medi_ko_name TEXT NOT NULL,
-     medi_en_name TEXT NULL,
+     ko_name TEXT NOT NULL,
+     en_name TEXT NULL,
      image_url TEXT NULL,
      ingredient TEXT NULL,
      assortment TEXT NULL,
@@ -36,11 +10,11 @@ CREATE TABLE IF NOT EXISTS PILLINFO (
      seller TEXT NULL,
      formulation TEXT NULL,
      taking_route TEXT NULL,
-     welfare_category TEXT NULL,
+     korea_food_and_drug_administration_category TEXT NULL,
      insurance_code TEXT NULL,
-     combination_prohibition TEXT NULL,
-     age_prohibition TEXT NULL,
-     pregnant_prohibition TEXT NULL,
+     combination_taboo TEXT NULL,
+     age_taboo TEXT NULL,
+     pregnant_taboo TEXT NULL,
      old_man_caution TEXT NULL,
      volume_and_treatment_period_caution TEXT NULL,
      division_caution TEXT NULL,
@@ -51,5 +25,5 @@ CREATE TABLE IF NOT EXISTS PILLINFO (
      efficacy TEXT NULL,
      dosage TEXT NULL,
      precaution TEXT NULL,
-     medication_advice TEXT NULL NOT NULL
+     medication_guide TEXT NULL
 )DEFAULT CHARSET=utf8;
