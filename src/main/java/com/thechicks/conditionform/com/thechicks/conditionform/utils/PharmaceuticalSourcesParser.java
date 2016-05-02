@@ -35,7 +35,15 @@ public class PharmaceuticalSourcesParser {
                 }
                 // ingredient 성분명
                 else if (title.equals("성분명")) {
-                    System.out.println("[성분명] : " + tds.get(1).findElement(By.tagName("a")).getText());
+                    List<WebElement> spans = tds.get(1).findElements(By.tagName("span"));
+                    String con = "";
+                    for(WebElement span : spans) {
+                        con += span.getText();
+                    }
+
+                    System.out.println(con);
+
+
                 }
                 // assortment 전문/일반 (네이버 : 구분), unitariness_or_complexness 단일/복합
                 else if (title.equals("전문 / 일반")) {
@@ -73,7 +81,7 @@ public class PharmaceuticalSourcesParser {
 
                 }
                 //shape_info 성상, packing_unit 포장단위
-                else if (title.contains("성상")) {
+                else if (title.equals("성상")) {
                     context = getContexts(tds);
                     pillInfo.setShape_info(context[0]);
                     pillInfo.setPacking_unit(context[1]);
