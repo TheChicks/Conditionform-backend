@@ -25,52 +25,75 @@ public class PharmaceuticalSourcesParser {
             for(WebElement tr : trs) {
                List<WebElement> tds =  tr.findElements(By.tagName("td"));
                 String title = tds.get(0).getText();
-                String[] context;
+                String[] context = new String[3];
 
                 // medi_ko_name  한글약이름, medi_en_name 영문약이름, image_url 이미지URL
                 if(title.equals("제품명")) {
-                    pillInfo.setMedi_ko_name(tds.get(1).findElement(By.tagName("b")).getText());
-                    pillInfo.setMedi_en_name(tds.get(1).findElement(By.tagName("span")).getText());
-                    pillInfo.setImage_url(tds.get(2).findElement(By.tagName("img")).getAttribute("src"));
+
+                    context[0] = tds.get(1).findElement(By.tagName("b")).getText();
+                    context[1] = tds.get(1).findElement(By.tagName("span")).getText();
+                    if(!tds.get(2).findElement(By.tagName("img")).getAttribute("title").equals("식별이미지 없음"))
+                        context[2] = tds.get(2).findElement(By.tagName("img")).getAttribute("src");
+                    else
+                        context[2] = "";
+
+                    handleBlank(context);
+
+                    pillInfo.setMedi_ko_name(context[0]);
+                    pillInfo.setMedi_en_name(context[1]);
+                    pillInfo.setImage_url(context[2]);
+
                 }
                 // ingredient 성분명
                 else if (title.equals("성분명")) {
-                    List<WebElement> spans = tds.get(1).findElements(By.tagName("span"));
-                    String con = "";
-                    for(WebElement span : spans) {
-                        con += span.getText();
+                    List<WebElement> as = tr.findElements(By.tagName("a"));
+                    context[0] = "";
+                    int comma = 0;
+
+                    //setter가 for문 밖에 있으면 null값이 들어간다ㅠㅠ 이상해
+                    for(WebElement a : as) {
+                        context[0] += a.getText();
+                        if(comma++ < as.size()-1) {
+                            context[0] += ", ";
+                        }
+                        pillInfo.setIngredient(context[0]);
                     }
-
-                    System.out.println(con);
-
 
                 }
                 // assortment 전문/일반 (네이버 : 구분), unitariness_or_complexness 단일/복합
                 else if (title.equals("전문 / 일반")) {
                     context = getContexts(tds);
+                    context = handleBlank(context);
                     pillInfo.setAssortment(context[0]);
                     pillInfo.setUnitariness_or_complexness(context[1]);
                 }
                 // manufacture_assortment 제조/수입사, seller 판매사
                 else if (title.equals("제조 / 수입사")) {
-                    context = getContexts(tds);
+                    context = handleBlank(getContexts(tds));
                     pillInfo.setManufacture_assortment(context[0]);
                     pillInfo.setSeller(context[1]);
                 }
                 // formulation 제형, taking_route 투여경로
                 else if (title.equals("제형")) {
                     context = getContexts(tds);
+                    context = handleBlank(context);
                     pillInfo.setFormulation(context[0]);
                     pillInfo.setTaking_route(context[1]);
                 }
                 // welfare_category 복지부분류
-                else if (title.equals("복지부 분류")) {
-                    pillInfo.setWelfare_category(getContext(tds));
+                else if (title.equals("식약처 분류")) {
+                    context[0] = handleBlank(getContext(tds));
+                    pillInfo.setWelfare_category(context[0]);
 
                 }
+                // insurance_code 보험코드
                 else if (title.equals("급여정보")) {
-                    pillInfo.setInsurance_code(tds.get(1).findElement(By.tagName("span")).getText());
-                    System.out.println("[" + title + "] : " + tds.get(1).findElement(By.tagName("span")).getText());
+
+                    if(!tds.get(1).getText().equals("")) {
+                        if (!tds.get(1).findElement(By.tagName("div")).getText().contains("비급여")) {
+                            pillInfo.setInsurance_code(tds.get(1).findElement(By.tagName("span")).getText());
+                        }
+                    }
                 }
 
                 /*  combination_prohibition 병용금지, age_prohibition 연령금지, pregnant_prohibition 임부금지,
@@ -108,6 +131,8 @@ public class PharmaceuticalSourcesParser {
         //medication_guide 복약지도
         pillInfo.setMedication_guide(getContextById(webDriver,"tabcon_guide"));
 
+        System.out.println(pillInfo);
+
         return pillInfo;
     }
 
@@ -125,12 +150,8 @@ public class PharmaceuticalSourcesParser {
                 pillInfo.setCombination_prohibition(getContext(tdsOfTr));
             }
             else if (title.equals("[연령금기]")){
-                if(tdsOfTr.get(1).getText().contains("없음")) {
-                    getContext(tdsOfTr);
-                }
-                else {
+                if(!tdsOfTr.get(1).getText().contains("없음")) {
                     pillInfo.setAge_prohibition(tdsOfTr.get(1).findElement(By.tagName("a")).getText());
-                    System.out.println(title + " : " + tdsOfTr.get(1).findElement(By.tagName("a")).getText());
                 }
 
             }
@@ -143,12 +164,10 @@ public class PharmaceuticalSourcesParser {
             else if (title.contains("[용량/투여기간주의]")){
 
                 if(tdsOfTr.size() == 1) {
-                    pillInfo.setVolume_and_treatment_period_caution(title.replace("[용량/투여기간주의]", "").replace(" ",""));
-                    System.out.println("[용량/투여기간주의]" + " : " + title.replace("[용량/투여기간주의]", "").replace(" ",""));
+                    pillInfo.setVolume_and_treatment_period_caution(handleBlank(title.replace("[용량/투여기간주의]", "").replace(" ","")));
                 }
                 else {
-                    pillInfo.setVolume_and_treatment_period_caution(trOfTd.findElement(By.tagName("span")).getText());
-                    System.out.println(title + " : " + trOfTd.findElement(By.tagName("span")).getText());
+                    pillInfo.setVolume_and_treatment_period_caution(handleBlank(trOfTd.findElement(By.tagName("span")).getText()));
                 }
             }
             else if (title.equals("[분할주의]")){
@@ -168,20 +187,13 @@ public class PharmaceuticalSourcesParser {
     private String[] getContexts (List<WebElement> tds)  {
 
         String[] contexts = {tds.get(1).getText(), tds.get(3).getText()};
-
-        System.out.println("[" + tds.get(0).getText() + "] : " + contexts[0] + ", " + "[" + tds.get(2).getText()+ "] : " + contexts[1]);
         return contexts;
 
     }
 
 
     private String getContext (List<WebElement> tds)  {
-
-        String context = tds.get(1).getText();
-
-        System.out.println("[" + tds.get(0).getText() + "] : " + context);
-        return context;
-
+            return handleBlank(tds.get(1).getText());
     }
 
 
@@ -189,46 +201,29 @@ public class PharmaceuticalSourcesParser {
     private String getContextById (WebDriver webDriver, String id) {
 
         List<WebElement> trs = webDriver.findElement(By.id(id)).findElements(By.tagName("tr"));
-        String context = trs.get(1).findElement(By.tagName("td")).getText();
 
-        System.out.println("[" + trs.get(0).findElement(By.tagName("td")).getText() + "] : " + context);
+        return trs.get(1).findElement(By.tagName("td")).getText();
+
+    }
+
+    private String[] handleBlank (String[] contexts) {
+
+        for(int i = 0; i < contexts.length; i++) {
+            if (contexts[i].equals("") || contexts[i].equals("없음"))
+                contexts[i] = null;
+        }
+
+        return contexts;
+
+    }
+
+    private String handleBlank (String context) {
+
+            if (context.equals("") || context.equals("없음"))
+                context = null;
         return context;
-
     }
 
 
 
 }
-
-
-/*
-    private String medi_ko_name; // 한글약이름
-    private String medi_en_name; // 영문약이름
-    private String image_url; // 이미지URL
-    private String ingredient; // 성분명
-    private String assortment; //전문/일반 //구분
-    private String unitariness_or_complexness; // 단일/복합
-    private String manufacture_assortment; //제조/수입사
-    private String seller;//판매사
-    private String formulation; //제형
-    private String taking_route; // 투여경로
-    private String welfare_category; //복지부분류
-    private String insurance_code; //보험코드
-
-    private String combination_prohibition; //병용금지
-    private String age_prohibition; //연령금지
-    private String pregnant_prohibition; //임부금지
-    private String old_man_caution; //노인주의
-    private String volume_and_treatment_period_caution; //용량/투여기간주의
-    private String division_caution; //분할주의
-    private String blood_donation_prohibition; //헌혈금기
-
-    private String shape_info; //성상
-    private String packing_unit; //포장단위
-    private String storagint_method; //저장방법
-    private String efficacy; //효능효과
-    private String dosage; //용법용량
-    private String precaution; //사용상주의사항
-    private String medication_guide; //복약지도
-
-*/

@@ -252,4 +252,38 @@ public class PillInfo {
         this.medication_guide = medication_guide;
     }
 
+
+    @Override
+    public String toString() {
+        return "PillInfo{" +
+                "medi_ko_name=" + medi_ko_name + '\n' +
+                " medi_en_name=" + medi_en_name + '\n' +
+                " image_url=" + image_url + '\n' +
+                " ingredient=" + ingredient + '\n' +
+                " assortment=" + assortment + '\n' +
+                " unitariness_or_complexness=" + unitariness_or_complexness + '\n' +
+                " manufacture_assortment=" + manufacture_assortment + '\n' +
+                " seller=" + seller + '\n' +
+                " formulation=" + formulation + '\n' +
+                " taking_route=" + taking_route + '\n' +
+                " welfare_category=" + welfare_category + '\n' +
+                " insurance_code=" + insurance_code + '\n' +
+                " combination_prohibition=" + combination_prohibition + '\n' +
+                " age_prohibition=" + age_prohibition + '\n' +
+                " pregnant_prohibition=" + pregnant_prohibition + '\n' +
+                " old_man_caution=" + old_man_caution + '\n' +
+                " volume_and_treatment_period_caution=" + volume_and_treatment_period_caution + '\n' +
+                " division_caution=" + division_caution + '\n' +
+                " blood_donation_prohibition=" + blood_donation_prohibition + '\n' +
+                " shape_info=" + shape_info + '\n' +
+                " packing_unit=" + packing_unit + '\n' +
+                " storagint_method=" + storagint_method + '\n' +
+                " efficacy=" + efficacy + '\n' +
+                " dosage=" + dosage + '\n' +
+                " precaution=" + precaution + '\n' +
+                " medication_guide=" + medication_guide + '\n' +
+                '}';
+    }
+
+
 }

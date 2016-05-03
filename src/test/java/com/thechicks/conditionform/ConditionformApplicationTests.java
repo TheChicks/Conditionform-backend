@@ -16,12 +16,21 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 public class ConditionformApplicationTests {
 
+    private PharmaceuticalSourcesCrawler pharmaceuticalSourcesCrawler;
+
+    public  ConditionformApplicationTests() {
+        pharmaceuticalSourcesCrawler = new PharmaceuticalSourcesCrawler();
+    }
+
+
 	@Test
 	public void contextLoads() {
-
-		PharmaceuticalSourcesCrawler.crawlPage("http://www.health.kr/drug_info/basedrug/show_detail.asp?idx=23642");
-		PharmaceuticalSourcesCrawler.crawlPage("http://www.health.kr/drug_info/basedrug/show_detail.asp?idx=8467");
-
+        pharmaceuticalSourcesCrawler.crawlPage("http://www.health.kr/drug_info/basedrug/show_detail.asp?idx=23642");
+        pharmaceuticalSourcesCrawler.crawlPage("http://www.health.kr/drug_info/basedrug/show_detail.asp?idx=8467");
+        pharmaceuticalSourcesCrawler.crawlPage("http://www.health.kr/drug_info/basedrug/show_detail.asp?idx=17014");
+        pharmaceuticalSourcesCrawler.crawlPage("http://www.health.kr/drug_info/basedrug/show_detail.asp?idx=13625");
+        pharmaceuticalSourcesCrawler.crawlPage("http://www.health.kr/drug_info/basedrug/show_detail.asp?idx=136");
+        pharmaceuticalSourcesCrawler.crawlPage("http://www.health.kr/drug_info/basedrug/show_detail.asp?idx=10591");
 	}
 
 
