@@ -1,6 +1,6 @@
-package com.thechicks.conditionform.com.thechicks.conditionform.utils;
+package com.thechicks.conditionform.util;
 
-import com.thechicks.conditionform.com.thechicks.conditionform.beans.PillInfo;
+import com.thechicks.conditionform.model.Pill;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,16 +14,16 @@ public class PharmaceuticalSourcesParser {
 
 
 
-    public PillInfo onParse(WebDriver webDriver, List<WebElement> webElements) {
+    public Pill onParse(WebDriver webDriver, List<WebElement> webElements) {
 
-        PillInfo pillInfo = new PillInfo();
+        Pill pillInfo = new Pill();
 
 
         for(WebElement w : webElements) {
             List<WebElement> trs = w.findElements(By.tagName("tr"));
 
             for(WebElement tr : trs) {
-               List<WebElement> tds =  tr.findElements(By.tagName("td"));
+                List<WebElement> tds =  tr.findElements(By.tagName("td"));
                 String title = tds.get(0).getText();
                 String[] context = new String[3];
 
@@ -39,8 +39,8 @@ public class PharmaceuticalSourcesParser {
 
                     handleBlank(context);
 
-                    pillInfo.setMedi_ko_name(context[0]);
-                    pillInfo.setMedi_en_name(context[1]);
+                    pillInfo.setKo_name(context[0]);
+                    pillInfo.setEn_name(context[1]);
                     pillInfo.setImage_url(context[2]);
 
                 }
@@ -83,7 +83,7 @@ public class PharmaceuticalSourcesParser {
                 // welfare_category 복지부분류
                 else if (title.equals("식약처 분류")) {
                     context[0] = handleBlank(getContext(tds));
-                    pillInfo.setWelfare_category(context[0]);
+                    pillInfo.setKorea_food_and_drug_administration_category(context[0]);
 
                 }
                 // insurance_code 보험코드
@@ -139,7 +139,7 @@ public class PharmaceuticalSourcesParser {
 
 
 
-    private PillInfo getSafeInfo(PillInfo pillInfo, List<WebElement> trsOfTd) {
+    private Pill getSafeInfo(Pill pill, List<WebElement> trsOfTd) {
 
         for(WebElement trOfTd: trsOfTd) {
 
@@ -147,38 +147,38 @@ public class PharmaceuticalSourcesParser {
             String title = tdsOfTr.get(0).getText();
 
             if(title.equals("[병용금기]")) {
-                pillInfo.setCombination_prohibition(getContext(tdsOfTr));
+                pill.setCombination_taboo(getContext(tdsOfTr));
             }
             else if (title.equals("[연령금기]")){
                 if(!tdsOfTr.get(1).getText().contains("없음")) {
-                    pillInfo.setAge_prohibition(tdsOfTr.get(1).findElement(By.tagName("a")).getText());
+                    pill.setAge_taboo(tdsOfTr.get(1).findElement(By.tagName("a")).getText());
                 }
 
             }
             else if (title.equals("[임부금기]")){
-                pillInfo.setPregnant_prohibition(getContext(tdsOfTr));
+                pill.setPregnant_taboo(getContext(tdsOfTr));
             }
             else if (title.equals("[노인주의]")){
-                pillInfo.setOld_man_caution(getContext(tdsOfTr));
+                pill.setOld_man_caution(getContext(tdsOfTr));
             }
             else if (title.contains("[용량/투여기간주의]")){
 
                 if(tdsOfTr.size() == 1) {
-                    pillInfo.setVolume_and_treatment_period_caution(handleBlank(title.replace("[용량/투여기간주의]", "").replace(" ","")));
+                    pill.setVolume_and_treatment_period_caution(handleBlank(title.replace("[용량/투여기간주의]", "").replace(" ","")));
                 }
                 else {
-                    pillInfo.setVolume_and_treatment_period_caution(handleBlank(trOfTd.findElement(By.tagName("span")).getText()));
+                    pill.setVolume_and_treatment_period_caution(handleBlank(trOfTd.findElement(By.tagName("span")).getText()));
                 }
             }
             else if (title.equals("[분할주의]")){
-                pillInfo.setDivision_caution(getContext(tdsOfTr));
+                pill.setDivision_caution(getContext(tdsOfTr));
             }
             else if (title.equals("[헌혈금지]")){
-                pillInfo.setBlood_donation_prohibition(getContext(tdsOfTr));
+                pill.setBlood_donation_prohibition(getContext(tdsOfTr));
             }
         }
 
-        return pillInfo;
+        return pill;
 
     }
 
@@ -193,7 +193,7 @@ public class PharmaceuticalSourcesParser {
 
 
     private String getContext (List<WebElement> tds)  {
-            return handleBlank(tds.get(1).getText());
+        return handleBlank(tds.get(1).getText());
     }
 
 
@@ -219,10 +219,11 @@ public class PharmaceuticalSourcesParser {
 
     private String handleBlank (String context) {
 
-            if (context.equals("") || context.equals("없음"))
-                context = null;
+        if (context.equals("") || context.equals("없음"))
+            context = null;
         return context;
     }
+
 
 
 

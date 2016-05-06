@@ -1,4 +1,4 @@
-package com.thechicks.conditionform.com.thechicks.conditionform.config;
+package com.thechicks.conditionform.config;
 
 /**
  * Created by Leeseolhee on 2016. 4. 14..

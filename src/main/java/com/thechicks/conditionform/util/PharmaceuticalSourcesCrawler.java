@@ -1,7 +1,9 @@
-package com.thechicks.conditionform.com.thechicks.conditionform.utils;
+package com.thechicks.conditionform.util;
 
-import com.thechicks.conditionform.com.thechicks.conditionform.beans.PillInfo;
-import org.openqa.selenium.*;
+import com.thechicks.conditionform.model.Pill;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
 public class PharmaceuticalSourcesCrawler {
 
 
-    public PillInfo crawlPage(String url) {
+    public Pill crawlPage(String url) {
 
         WebDriver driver = new HtmlUnitDriver();
         driver.get(url);
@@ -21,12 +23,13 @@ public class PharmaceuticalSourcesCrawler {
         if(!driver.getTitle().equals("")) {
             PharmaceuticalSourcesParser pharmaceuticalSourcesParser = new PharmaceuticalSourcesParser();
             List<WebElement> elements = driver.findElements(By.className("pd_box"));
-            PillInfo pillInfo = pharmaceuticalSourcesParser.onParse(driver, elements);
-            return pillInfo;
+            Pill pill = pharmaceuticalSourcesParser.onParse(driver, elements);
+            return pill;
         } else {
             return null;
         }
 
 
     }
+
 }

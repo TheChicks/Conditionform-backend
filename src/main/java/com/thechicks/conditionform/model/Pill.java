@@ -1,13 +1,13 @@
-package com.thechicks.conditionform.com.thechicks.conditionform.beans;
+package com.thechicks.conditionform.model;
 
 /**
- * Created by Leeseolhee on 2016. 4. 29..
+ * Created by Leeseolhee on 2016. 4. 30..
  */
-public class PillInfo {
+public class Pill {
 
     private int id;
-    private String medi_ko_name; // 한글약이름
-    private String medi_en_name; // 영문약이름
+    private String ko_name; // 한글약이름
+    private String en_name; // 영문약이름
     private String image_url; // 이미지URL
     private String ingredient; // 성분명
     private String assortment; //전문/일반 //구분
@@ -16,16 +16,16 @@ public class PillInfo {
     private String seller;//판매사
     private String formulation; //제형
     private String taking_route; // 투여경로
-    private String welfare_category; //복지부분류
+    private String korea_food_and_drug_administration_category; //식약처 분류
     private String insurance_code; //보험코드
 
-    private String combination_prohibition; //병용금지
-    private String age_prohibition; //연령금지
-    private String pregnant_prohibition; //임부금지
+    private String combination_taboo; //병용금기
+    private String age_taboo; //연령금기
+    private String pregnant_taboo; //임부금기
     private String old_man_caution; //노인주의
     private String volume_and_treatment_period_caution; //용량/투여기간주의
     private String division_caution; //분할주의
-    private String blood_donation_prohibition; //헌혈금기
+    private String blood_donation_prohibition; //헌혈금지
 
     private String shape_info; //성상
     private String packing_unit; //포장단위
@@ -35,7 +35,6 @@ public class PillInfo {
     private String precaution; //사용상주의사항
     private String medication_guide; //복약지도
 
-
     public int getId() {
         return id;
     }
@@ -44,20 +43,20 @@ public class PillInfo {
         this.id = id;
     }
 
-    public String getMedi_ko_name() {
-        return medi_ko_name;
+    public String getKo_name() {
+        return ko_name;
     }
 
-    public void setMedi_ko_name(String medi_ko_name) {
-        this.medi_ko_name = medi_ko_name;
+    public void setKo_name(String ko_name) {
+        this.ko_name = ko_name;
     }
 
-    public String getMedi_en_name() {
-        return medi_en_name;
+    public String getEn_name() {
+        return en_name;
     }
 
-    public void setMedi_en_name(String medi_en_name) {
-        this.medi_en_name = medi_en_name;
+    public void setEn_name(String en_name) {
+        this.en_name = en_name;
     }
 
     public String getImage_url() {
@@ -124,12 +123,12 @@ public class PillInfo {
         this.taking_route = taking_route;
     }
 
-    public String getWelfare_category() {
-        return welfare_category;
+    public String getKorea_food_and_drug_administration_category() {
+        return korea_food_and_drug_administration_category;
     }
 
-    public void setWelfare_category(String welfare_category) {
-        this.welfare_category = welfare_category;
+    public void setKorea_food_and_drug_administration_category(String korea_food_and_drug_administration_category) {
+        this.korea_food_and_drug_administration_category = korea_food_and_drug_administration_category;
     }
 
     public String getInsurance_code() {
@@ -140,28 +139,28 @@ public class PillInfo {
         this.insurance_code = insurance_code;
     }
 
-    public String getCombination_prohibition() {
-        return combination_prohibition;
+    public String getCombination_taboo() {
+        return combination_taboo;
     }
 
-    public void setCombination_prohibition(String combination_prohibition) {
-        this.combination_prohibition = combination_prohibition;
+    public void setCombination_taboo(String combination_taboo) {
+        this.combination_taboo = combination_taboo;
     }
 
-    public String getAge_prohibition() {
-        return age_prohibition;
+    public String getAge_taboo() {
+        return age_taboo;
     }
 
-    public void setAge_prohibition(String age_prohibition) {
-        this.age_prohibition = age_prohibition;
+    public void setAge_taboo(String age_taboo) {
+        this.age_taboo = age_taboo;
     }
 
-    public String getPregnant_prohibition() {
-        return pregnant_prohibition;
+    public String getPregnant_taboo() {
+        return pregnant_taboo;
     }
 
-    public void setPregnant_prohibition(String pregnant_prohibition) {
-        this.pregnant_prohibition = pregnant_prohibition;
+    public void setPregnant_taboo(String pregnant_taboo) {
+        this.pregnant_taboo = pregnant_taboo;
     }
 
     public String getOld_man_caution() {
@@ -251,39 +250,4 @@ public class PillInfo {
     public void setMedication_guide(String medication_guide) {
         this.medication_guide = medication_guide;
     }
-
-
-    @Override
-    public String toString() {
-        return "PillInfo{" +
-                "medi_ko_name=" + medi_ko_name + '\n' +
-                " medi_en_name=" + medi_en_name + '\n' +
-                " image_url=" + image_url + '\n' +
-                " ingredient=" + ingredient + '\n' +
-                " assortment=" + assortment + '\n' +
-                " unitariness_or_complexness=" + unitariness_or_complexness + '\n' +
-                " manufacture_assortment=" + manufacture_assortment + '\n' +
-                " seller=" + seller + '\n' +
-                " formulation=" + formulation + '\n' +
-                " taking_route=" + taking_route + '\n' +
-                " welfare_category=" + welfare_category + '\n' +
-                " insurance_code=" + insurance_code + '\n' +
-                " combination_prohibition=" + combination_prohibition + '\n' +
-                " age_prohibition=" + age_prohibition + '\n' +
-                " pregnant_prohibition=" + pregnant_prohibition + '\n' +
-                " old_man_caution=" + old_man_caution + '\n' +
-                " volume_and_treatment_period_caution=" + volume_and_treatment_period_caution + '\n' +
-                " division_caution=" + division_caution + '\n' +
-                " blood_donation_prohibition=" + blood_donation_prohibition + '\n' +
-                " shape_info=" + shape_info + '\n' +
-                " packing_unit=" + packing_unit + '\n' +
-                " storagint_method=" + storagint_method + '\n' +
-                " efficacy=" + efficacy + '\n' +
-                " dosage=" + dosage + '\n' +
-                " precaution=" + precaution + '\n' +
-                " medication_guide=" + medication_guide + '\n' +
-                '}';
-    }
-
-
 }
