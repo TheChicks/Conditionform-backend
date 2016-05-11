@@ -11,9 +11,9 @@ buildscript {
 }
 
 apply plugin: 'java'
-//apply plugin: 'eclipse'
-apply plugin: 'eclipse-wtp'
-apply plugin: 'war'
+apply plugin: 'eclipse'
+//apply plugin: 'eclipse-wtp'
+//apply plugin: 'war'
 apply plugin: 'spring-boot' 
 
 jar {
@@ -46,7 +46,8 @@ dependencies {
 	compile('org.seleniumhq.selenium:selenium-java:2.41.0')
 //	runtime('mysql:mysql-connector-java')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+	runtime('org.springframework.boot:spring-boot-starter-tomcat')
+	compile('org.apache.tomcat.embed:tomcat-embed-jasper')
 }
 
 
