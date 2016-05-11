@@ -19,34 +19,21 @@ public class PillController {
     @Autowired
     private PillService pillService;
 
-    @RequestMapping("/pillInformations/all")
+    @RequestMapping("/")
+    public String root() {
+        return "conditionForm";
+    }
+
+    @RequestMapping("/pills/all")
     public List<Pill> getAllList() {
         List<Pill> pillList = pillService.findAll();
         return pillList;
-
     }
 
-    @RequestMapping("/pillInformations/search")
+    @RequestMapping("/pills/search")
     public List<Pill> getPillInfomationsByName(@RequestParam("word") String word)  {
         List<Pill> pills = pillService.getBySerchWord(word); // DB
-
-//        if(pills.size() == 0) {
-//            PillDetailInfoHtmlParser pillDetailInfoHtmlParser = new PillDetailInfoHtmlParser();
-//            pills = PillSearchXmlParser.getSearchPillSerchInfoaList(mediName);
-//
-//            for(Pill p : pills) {
-//                System.out.println(p);
-//                Pill detailInfo = pillDetailInfoHtmlParser.getDetailInfo(p.getLink());
-//                detailInfo.setLink(p.getLink());
-//                pillDao.insertPill(detailInfo);
-//            }
-//
-//            pills = pillDao.getPillInfomations(word);
-//            return pills;
-//        }
-//        else {
         return pills;
-//        }
     }
 
 }

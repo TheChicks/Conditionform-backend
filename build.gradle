@@ -11,7 +11,9 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+//apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'war'
 apply plugin: 'spring-boot' 
 
 jar {
@@ -39,11 +41,12 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-jdbc")
 	compile("mysql:mysql-connector-java:5.1.31")
-	compile('javax.xml.parsers:jaxp-api:1.4.5');
-	compile('org.jsoup:jsoup:1.7.2');
+	compile('javax.xml.parsers:jaxp-api:1.4.5')
+	compile('org.jsoup:jsoup:1.7.2')
 	compile('org.seleniumhq.selenium:selenium-java:2.41.0')
 //	runtime('mysql:mysql-connector-java')
-	testCompile('org.springframework.boot:spring-boot-starter-test') 
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 }
 
 
