@@ -2,6 +2,7 @@ package com.thechicks.conditionform.service;
 
 import com.thechicks.conditionform.dao.PillDao;
 import com.thechicks.conditionform.model.Pill;
+import com.thechicks.conditionform.util.PharmaceuticalSourcesCrawler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +44,15 @@ public class PillService {
         pillDao.delete(id);
     }
 
+    public void pushPills() {
+        PharmaceuticalSourcesCrawler pharmaceuticalSourcesCrawler = new PharmaceuticalSourcesCrawler();
 
-
+        for(int i = 0; i < 100; i++) {
+            Pill pill = pharmaceuticalSourcesCrawler.crawlPage("http://www.health.kr/drug_info/basedrug/show_detail.asp?idx=" + (8113+i));
+            System.out.println(8113 + i);
+            if(pill != null)
+                insert(pill);
+        }
+    }
 
 }

@@ -16,7 +16,7 @@ public class PharmaceuticalSourcesParser {
 
     public Pill onParse(WebDriver webDriver, List<WebElement> webElements) {
 
-        Pill pillInfo = new Pill();
+        Pill pill = new Pill();
 
 
         for(WebElement w : webElements) {
@@ -39,9 +39,9 @@ public class PharmaceuticalSourcesParser {
 
                     handleBlank(context);
 
-                    pillInfo.setKo_name(context[0]);
-                    pillInfo.setEn_name(context[1]);
-                    pillInfo.setImage_url(context[2]);
+                    pill.setKo_name(context[0]);
+                    pill.setEn_name(context[1]);
+                    pill.setImage_url(context[2]);
 
                 }
                 // ingredient 성분명
@@ -56,7 +56,7 @@ public class PharmaceuticalSourcesParser {
                         if(comma++ < as.size()-1) {
                             context[0] += ", ";
                         }
-                        pillInfo.setIngredient(context[0]);
+                        pill.setIngredient(context[0]);
                     }
 
                 }
@@ -64,26 +64,26 @@ public class PharmaceuticalSourcesParser {
                 else if (title.equals("전문 / 일반")) {
                     context = getContexts(tds);
                     context = handleBlank(context);
-                    pillInfo.setAssortment(context[0]);
-                    pillInfo.setUnitariness_or_complexness(context[1]);
+                    pill.setAssortment(context[0]);
+                    pill.setUnitariness_or_complexness(context[1]);
                 }
                 // manufacture_assortment 제조/수입사, seller 판매사
                 else if (title.equals("제조 / 수입사")) {
                     context = handleBlank(getContexts(tds));
-                    pillInfo.setManufacture_assortment(context[0]);
-                    pillInfo.setSeller(context[1]);
+                    pill.setManufacture_assortment(context[0]);
+                    pill.setSeller(context[1]);
                 }
                 // formulation 제형, taking_route 투여경로
                 else if (title.equals("제형")) {
                     context = getContexts(tds);
                     context = handleBlank(context);
-                    pillInfo.setFormulation(context[0]);
-                    pillInfo.setTaking_route(context[1]);
+                    pill.setFormulation(context[0]);
+                    pill.setTaking_route(context[1]);
                 }
                 // welfare_category 복지부분류
                 else if (title.equals("식약처 분류")) {
                     context[0] = handleBlank(getContext(tds));
-                    pillInfo.setKorea_food_and_drug_administration_category(context[0]);
+                    pill.setKorea_food_and_drug_administration_category(context[0]);
 
                 }
                 // insurance_code 보험코드
@@ -91,7 +91,7 @@ public class PharmaceuticalSourcesParser {
 
                     if(!tds.get(1).getText().equals("")) {
                         if (!tds.get(1).findElement(By.tagName("div")).getText().contains("비급여")) {
-                            pillInfo.setInsurance_code(tds.get(1).findElement(By.tagName("span")).getText());
+                            pill.setInsurance_code(tds.get(1).findElement(By.tagName("span")).getText());
                         }
                     }
                 }
@@ -100,40 +100,40 @@ public class PharmaceuticalSourcesParser {
                 old_man_caution 노인주의, volume_and_treatment_period_caution 용량/투여기간주의,
                 division_caution 분할주의, blood_donation_prohibition 헌혈금기 */
                 else if (title.contains("의약품안전성")) {
-                    pillInfo = getSafeInfo(pillInfo, tds.get(1).findElements(By.tagName("tr")));
+                    pill = getSafeInfo(pill, tds.get(1).findElements(By.tagName("tr")));
 
                 }
                 //shape_info 성상, packing_unit 포장단위
                 else if (title.equals("성상")) {
                     context = getContexts(tds);
-                    pillInfo.setShape_info(context[0]);
-                    pillInfo.setPacking_unit(context[1]);
+                    pill.setShape_info(context[0]);
+                    pill.setPacking_unit(context[1]);
 
                 }
 
                 //storagint_method 저장방법
                 else if (title.contains("저장방법")) {
-                    pillInfo.setStoragint_method(getContext(tds));
+                    pill.setStoragint_method(getContext(tds));
                 }
             }
         }
 
         //efficacy 효능효과
-        pillInfo.setEfficacy(getContextById(webDriver,"tabcon_effect"));
+        pill.setEfficacy(getContextById(webDriver,"tabcon_effect"));
 
         //dosage 용법용량
-        pillInfo.setDosage(getContextById(webDriver,"tabcon_dosage"));
+        pill.setDosage(getContextById(webDriver,"tabcon_dosage"));
 
         //precaution 사용상주의사항
-        pillInfo.setPrecaution(getContextById(webDriver,"tabcon_caution"));
+        pill.setPrecaution(getContextById(webDriver,"tabcon_caution"));
 
 
         //medication_guide 복약지도
-        pillInfo.setMedication_guide(getContextById(webDriver,"tabcon_guide"));
+        pill.setMedication_guide(getContextById(webDriver,"tabcon_guide"));
 
-        System.out.println(pillInfo);
+//        System.out.println(pill);
 
-        return pillInfo;
+        return pill;
     }
 
 
@@ -200,11 +200,20 @@ public class PharmaceuticalSourcesParser {
 
     private String getContextById (WebDriver webDriver, String id) {
 
-        List<WebElement> trs = webDriver.findElement(By.id(id)).findElements(By.tagName("tr"));
+        WebElement contextElement = webDriver.findElement(By.id(id)).findElements(By.tagName("tr")).get(1).findElement(By.tagName("td"));
+        List<WebElement> rmContext = contextElement.findElements(By.tagName("table"));
+        String context = contextElement.getText();
 
-        return trs.get(1).findElement(By.tagName("td")).getText();
+        for(WebElement e : rmContext) {
+            context = context.replace(e.getText(),"");
+        }
+
+        context = context.replace("\n\n\n", "\n\n");
+
+        return context;
 
     }
+
 
     private String[] handleBlank (String[] contexts) {
 

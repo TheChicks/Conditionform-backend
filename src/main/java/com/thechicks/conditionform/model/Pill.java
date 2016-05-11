@@ -250,4 +250,36 @@ public class Pill {
     public void setMedication_guide(String medication_guide) {
         this.medication_guide = medication_guide;
     }
+
+    @Override
+    public String toString() {
+        return "Pill{" +
+                "ko_name='" + ko_name + '\n' +
+                "en_name='" + en_name + '\n' +
+                "image_url='" + image_url + '\n' +
+                "ingredient='" + ingredient + '\n' +
+                "assortment='" + assortment + '\n' +
+                "unitariness_or_complexness='" + unitariness_or_complexness + '\n' +
+                "manufacture_assortment='" + manufacture_assortment + '\n' +
+                "seller='" + seller + '\n' +
+                "formulation='" + formulation + '\n' +
+                "taking_route='" + taking_route + '\n' +
+                "korea_food_and_drug_administration_category='" + korea_food_and_drug_administration_category + '\n' +
+                "insurance_code='" + insurance_code + '\n' +
+                "combination_taboo='" + combination_taboo + '\n' +
+                "age_taboo='" + age_taboo + '\n' +
+                "pregnant_taboo='" + pregnant_taboo + '\n' +
+                "old_man_caution='" + old_man_caution + '\n' +
+                "volume_and_treatment_period_caution='" + volume_and_treatment_period_caution + '\n' +
+                "division_caution='" + division_caution + '\n' +
+                "blood_donation_prohibition='" + blood_donation_prohibition + '\n' +
+                "shape_info='" + shape_info + '\n' +
+                "packing_unit='" + packing_unit + '\n' +
+                "storagint_method='" + storagint_method + '\n' +
+                "efficacy='" + efficacy + '\n' +
+                "dosage='" + dosage + '\n' +
+                "precaution='" + precaution + '\n' +
+                "medication_guide='" + medication_guide + '\n' +
+                '}';
+    }
 }
