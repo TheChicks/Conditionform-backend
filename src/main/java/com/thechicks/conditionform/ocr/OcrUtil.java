@@ -1,31 +1,57 @@
 package com.thechicks.conditionform.ocr;
 
+import com.thechicks.conditionform.model.OcrResult;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 
 import java.io.File;
+import java.util.List;
 
+//Ocr 기능을 담당
 public class OcrUtil {
 
-    private ITesseract instance;
+    private static OcrUtil instance;
 
-    public OcrUtil(){
-        instance = new Tesseract();
-        instance.setLanguage("kor");
+    private ITesseract iTesseract;
+
+    private String currentDirectory;
+
+    public static OcrUtil getInstance(){
+        if(instance == null){
+            synchronized (OcrUtil.class){
+                if(instance == null){
+                    instance = new OcrUtil();
+                }
+            }
+        }
+        return instance;
     }
 
-    public void getOcrProcessingResult(String fileName){
+    public OcrUtil(){
+        iTesseract = new Tesseract();
+        iTesseract.setLanguage("kor");
 
-        File imageFile = new File("C:/pproject/" + fileName);
+        File file = new File(".");
+        currentDirectory = file.getAbsolutePath() + "/output/";
+    }
+
+    public List<OcrResult> getOcrProcessingResult(String fileName){
+
+        //Todo: 파일 경로 수정
+        File imageFile = new File(currentDirectory + fileName);
+        Filter filter = null;
 
         try {
-            String result = instance.doOCR(imageFile);
-            Filter filter = new Filter(result);
-            filter.print();
+            String result = iTesseract.doOCR(imageFile);
+            filter = new Filter(result);
 
         } catch (TesseractException e) {
             e.printStackTrace();
         }
+
+        filter.print();  //디버깅용
+
+        return filter.getOcrArray();
     }
 }

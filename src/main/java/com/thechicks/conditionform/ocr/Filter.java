@@ -120,4 +120,7 @@ public class Filter {
         }
     }
 
+    public ArrayList<OcrResult> getOcrArray() {
+        return ocrArray;
+    }
 }

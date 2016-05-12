@@ -19,7 +19,8 @@ public class OcrController {
     @RequestMapping(value = "/ocr", method = RequestMethod.POST)
     public List<OcrResult> getCcrResult(){
 
-        return null;
-    }
+        List<OcrResult> ocrResults = ocrService.getOcrResult();
 
+        return ocrResults;
+    }
 }
