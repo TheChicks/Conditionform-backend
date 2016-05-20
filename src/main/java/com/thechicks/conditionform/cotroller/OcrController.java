@@ -20,18 +20,9 @@ public class OcrController {
     private OcrService ocrService;
 
     //Todo: api 정의, multipart로 사진 받기
-//    @RequestMapping(value = "/ocr", method = RequestMethod.POST)
-//    @ResponseBody
-//    public List<OcrResult> getCcrResult(@RequestParam("prescription")MultipartFile prescription){
-//
-//        OcrUtil ocrUtil = new OcrUtil();
-//
-//        return ocrUtil.getOcrProcessingResult(prescription);
-//    }
-
     @RequestMapping(value = "/ocr", method = RequestMethod.POST)
     @ResponseBody
-    public List<OcrResult> getCcrResult(@RequestParam("prescription")MultipartFile prescription){
+    public List<OcrResult> getCcrResult(@RequestParam("prescription")MultipartFile prescription) {
 
         OcrUtil ocrUtil = new OcrUtil();
         return ocrUtil.getOcrProcessingResult(prescription);
@@ -52,6 +43,5 @@ public class OcrController {
 //        model.addAttribute("article", article);
 //        return "new";
 //    }
-
 }
 

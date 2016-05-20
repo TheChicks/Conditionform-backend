@@ -8,13 +8,32 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.util.List;
 
+//Ocr 기능을 담당
 public class OcrUtil {
 
-    private ITesseract instance;
+    private static OcrUtil instance;
 
-    public OcrUtil(){
-        instance = new Tesseract();
-        instance.setLanguage("kor");
+    private ITesseract iTesseract;
+
+    private String currentDirectory;
+
+    public static OcrUtil getInstance() {
+        if (instance == null) {
+            synchronized (OcrUtil.class) {
+                if (instance == null) {
+                    instance = new OcrUtil();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public OcrUtil() {
+        iTesseract = new Tesseract();
+        iTesseract.setLanguage("kor");
+
+        File file = new File(".");
+        currentDirectory = file.getAbsolutePath() + "/output/";
     }
 
 //    public void getOcrProcessingResult(String fileName){
@@ -35,19 +54,19 @@ public class OcrUtil {
 
 
         try {
-            if(!prescription.isEmpty()) {
-              File file = (File)prescription;
-              String result = instance.doOCR(file);
-              Filter filter = new Filter(result);
+            if (!prescription.isEmpty()) {
+                File file = (File) prescription;
+                String result = iTesseract.doOCR(file);
+                Filter filter = new Filter(result);
                 filter.divideTextToLine();
-              filter.print();
+                filter.print();
             }
         } catch (Exception e) {
+            e.printStackTrace();
 
         }
 
-
-//        if(!prescription.isEmpty()) {
+        //        if(!prescription.isEmpty()) {
 //            try {
 //                fileName = prescription.getOriginalFilename();
 //                byte[] bytes = prescription.getBytes();
@@ -68,6 +87,8 @@ public class OcrUtil {
 //
 //            }
 //        }
+
+
 
         return null;
     }

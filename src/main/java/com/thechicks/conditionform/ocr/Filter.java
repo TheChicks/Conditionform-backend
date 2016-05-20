@@ -31,7 +31,7 @@ public class Filter {
     public List<OcrResult> getOcrReultList(String content) {
 
         divideTextToLine();
-        checkWordType();
+//        checkWordType();
 
         return null;
 
@@ -136,4 +136,7 @@ public class Filter {
         }
     }
 
+    public ArrayList<OcrResult> getOcrArray() {
+        return ocrArray;
+    }
 }
