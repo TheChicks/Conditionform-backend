@@ -4,27 +4,40 @@ package com.thechicks.conditionform.ocr;
 import com.thechicks.conditionform.model.OcrResult;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Filter {
-    String text;
+    String content;
     ArrayList<String> line;
     ArrayList<OcrResult> ocrArray;
 
-    Filter(String text){
-        this.text = text;
-        line = new ArrayList<String>();
-        ocrArray = new ArrayList<OcrResult>();
-        divideTextToLine();
+
+    //Todo: 리팩토링하기
+    public Filter(String content){
+        this.content = content;
+        line = new ArrayList();
+        ocrArray = new ArrayList();
     }
 
     /* 문자열이 어떤 변수에 할당될 것인지 판별하는 함수
-	 * String pillNumber : 9
+	 *String pillNumber : 9
 	 *String pillName : 10
-	 *String quantity : 3;
-	 *String onedayDose : 3;
-	 *String totalDayDose : 3;
+	 *String quantity : 3
+	 *String onedayDose : 3
+	 *String totalDayDose : 3
 	 */
+
+    public List<OcrResult> getOcrReultList(String content) {
+
+        divideTextToLine();
+        checkWordType();
+
+        return null;
+
+    }
+
+
     public int checkWordType(String str){
         int number = str.length();
         int isChangePossible = isChangeLastWordToNumber(str);
@@ -58,7 +71,7 @@ public class Filter {
 
     //텍스트를 한줄씩 나눠 line(ArrayList)에 넣는다
     public void divideTextToLine(){
-        StringTokenizer st = new StringTokenizer(text, "\n");
+        StringTokenizer st = new StringTokenizer(content, "\n");
         while(st.hasMoreTokens()){
             line.add(st.nextToken());
         }
@@ -115,6 +128,9 @@ public class Filter {
     }
 
     public void print(){
+
+        System.out.println("결과");
+
         for(int i=0; i<ocrArray.size(); i++){
             System.out.println(ocrArray.get(i).getPillInsuranceCode() + ", " + ocrArray.get(i).getPillName() + ", " + ocrArray.get(i).getQuantity() + ", " + ocrArray.get(i).getOnedayDosage() + ", " + ocrArray.get(i).getTotalDayDosage());
         }
