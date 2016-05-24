@@ -9,14 +9,14 @@ import java.util.StringTokenizer;
 
 public class Filter {
     String content;
-    ArrayList<String> line;
+    ArrayList<String> pillInfos;
     ArrayList<OcrResult> ocrArray;
 
 
     //Todo: 리팩토링하기
     public Filter(String content){
         this.content = content;
-        line = new ArrayList();
+        pillInfos = new ArrayList();
         ocrArray = new ArrayList();
     }
 
@@ -28,12 +28,10 @@ public class Filter {
 	 *String totalDayDose : 3
 	 */
 
-    public List<OcrResult> getOcrReultList(String content) {
+    public List<OcrResult> getOcrReultList() {
 
         divideTextToLine();
-//        checkWordType();
-
-        return null;
+        return ocrArray;
 
     }
 
@@ -73,11 +71,11 @@ public class Filter {
     public void divideTextToLine(){
         StringTokenizer st = new StringTokenizer(content, "\n");
         while(st.hasMoreTokens()){
-            line.add(st.nextToken());
+            pillInfos.add(st.nextToken());
         }
 
-        for(int i=0; i<line.size(); i++){
-            divideLineToResult(line.get(i));
+        for(int i=0; i<pillInfos.size(); i++){
+            divideLineToResult(pillInfos.get(i));
         }
     }
 

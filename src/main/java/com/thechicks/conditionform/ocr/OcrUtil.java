@@ -6,6 +6,7 @@ import net.sourceforge.tess4j.Tesseract;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 //Ocr 기능을 담당
@@ -55,10 +56,11 @@ public class OcrUtil {
 
         try {
             if (!prescription.isEmpty()) {
-                File file = (File) prescription;
+                File file = multipartTofile(prescription);
+                prescription.transferTo(file);
                 String result = iTesseract.doOCR(file);
                 Filter filter = new Filter(result);
-                filter.divideTextToLine();
+                filter.getOcrReultList();
                 filter.print();
             }
         } catch (Exception e) {
@@ -91,6 +93,16 @@ public class OcrUtil {
 
 
         return null;
+    }
+
+    public File multipartTofile(MultipartFile multipartFile){
+        File convertFile = new File(multipartFile.getOriginalFilename());
+        try {
+            multipartFile.transferTo(convertFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return convertFile;
     }
 
 

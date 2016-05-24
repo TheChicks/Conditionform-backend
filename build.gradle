@@ -60,11 +60,7 @@ dependencies {
 
 	//For View Template
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-
-
-
 }
-
 
 eclipse {
 	classpath {
