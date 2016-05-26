@@ -3,6 +3,7 @@ package com.thechicks.conditionform.imageprocessing;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
+import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -12,6 +13,7 @@ import java.io.IOException;
 /**
  * Created by Leeseolhee on 2016. 5. 24..
  */
+@Component
 public class ImageProcessing {
 
     Mat mat;

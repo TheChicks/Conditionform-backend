@@ -3,6 +3,7 @@ package com.thechicks.conditionform.service;
 import com.thechicks.conditionform.imageprocessing.ImageProcessing;
 import com.thechicks.conditionform.model.OcrResult;
 import com.thechicks.conditionform.ocr.OcrUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,12 +15,16 @@ import java.util.List;
 @Service
 public class OcrService {
 
-
+    @Autowired
     private ImageProcessing imageProcessing;
 
-    public OcrService() {
-        imageProcessing = new ImageProcessing();
-    }
+    @Autowired
+    private OcrUtil ocrUtil;
+
+//    public OcrService() {
+//        imageProcessing = new ImageProcessing();
+//        ocrUtil = new OcrUtil();
+//    }
 
     public List<OcrResult> getOcrResult(MultipartFile multipartFile){
 
@@ -31,12 +36,8 @@ public class OcrService {
             file = imageProcessing.doImageProcessing(file.getPath(),".jpg");  //전처리
 
             //ocr 돌리고
-
             //후처리하고
-
             //리턴하면
-
-            OcrUtil ocrUtil = OcrUtil.getInstance();
             return ocrUtil.getOcrProcessingResult(file);
         }else {
             //뭔가 리턴
@@ -67,7 +68,6 @@ public class OcrService {
         }catch (Exception e) {
             e.printStackTrace();
         }
-        OcrUtil ocrUtil = OcrUtil.getInstance();
         return ocrUtil.getOcrProcessingResult(file);
         //return null;
     }

@@ -12,8 +12,6 @@ import java.util.List;
  */
 public class PharmaceuticalSourcesParser {
 
-
-
     public Pill onParse(WebDriver webDriver, List<WebElement> webElements) {
 
         Pill pill = new Pill();
