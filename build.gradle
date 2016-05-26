@@ -57,9 +57,12 @@ dependencies {
 
 	//Tesseract For Java
 	compile('net.sourceforge.tess4j:tess4j:3.1.0')
+	//compile('com.sun.media:jai_imageio:1.1')
 
 	//For View Template
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+
+	compile fileTree(include: ['*.jar'], dir: 'libs')
 }
 
 eclipse {

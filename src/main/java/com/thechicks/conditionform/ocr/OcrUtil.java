@@ -33,8 +33,8 @@ public class OcrUtil {
         iTesseract = new Tesseract();
         iTesseract.setLanguage("kor");
 
-        File file = new File(".");
-        currentDirectory = file.getAbsolutePath() + "/output/";
+//        File file = new File(".");
+//        currentDirectory = file.getAbsolutePath() + "/output/";
     }
 
 //    public void getOcrProcessingResult(String fileName){
@@ -51,48 +51,27 @@ public class OcrUtil {
 //        }
 //    }
 
-    public List<OcrResult> getOcrProcessingResult(MultipartFile prescription) {
 
+    public List<OcrResult> getOcrProcessingResult(File file) {
 
         try {
-            if (!prescription.isEmpty()) {
-                File file = multipartTofile(prescription);
-                prescription.transferTo(file);
-                String result = iTesseract.doOCR(file);
-                Filter filter = new Filter(result);
-                filter.getOcrReultList();
-                filter.print();
-            }
+            String result = iTesseract.doOCR(file);
+            System.out.println(result);
+            Filter filter = new Filter(result);
+            filter.divideTextToLine();
+            filter.divideLineToResult();
+            filter.print();
+
+            return filter.getOcrResults();
+
+
         } catch (Exception e) {
             e.printStackTrace();
 
         }
 
-        //        if(!prescription.isEmpty()) {
-//            try {
-//                fileName = prescription.getOriginalFilename();
-//                byte[] bytes = prescription.getBytes();
-//
-//                File file = new File("C:/Users/Leeseolhee/" + fileName);
-//
-//                //exception 발생!!!!
-//                BufferedOutputStream buffStream = new BufferedOutputStream(new FileOutputStream((file)));
-//                buffStream.write(bytes);
-//                buffStream.close();
-//
-//                String result = instance.doOCR(file);
-//                Filter filter = new Filter(result);
-//                filter.print();
-//
-//
-//            } catch (Exception e) {
-//
-//            }
-//        }
-
-
-
         return null;
+
     }
 
     public File multipartTofile(MultipartFile multipartFile){

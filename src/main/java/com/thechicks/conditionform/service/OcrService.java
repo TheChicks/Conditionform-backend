@@ -1,21 +1,79 @@
 package com.thechicks.conditionform.service;
 
+import com.thechicks.conditionform.imageprocessing.ImageProcessing;
 import com.thechicks.conditionform.model.OcrResult;
 import com.thechicks.conditionform.ocr.OcrUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
 import java.util.List;
 
 @Service
 public class OcrService {
 
-    //OcrUtil에서 결과를 받아온다.
-    public List<OcrResult> getOcrResult(){
-       OcrUtil ocrUtil = OcrUtil.getInstance();
 
-//        List<OcrResult> ocrResults = ocrUtil.getOcrProcessingResult("");
+    private ImageProcessing imageProcessing;
 
-//        return ocrResults;
-        return null;
+    public OcrService() {
+        imageProcessing = new ImageProcessing();
     }
+
+    public List<OcrResult> getOcrResult(MultipartFile prescription){
+
+        File file = multipartTofile(prescription);
+        file = imageProcessing.doImageProcessing(file.getPath(),".jpg");
+
+        OcrUtil ocrUtil = OcrUtil.getInstance();
+        return ocrUtil.getOcrProcessingResult(file);
+    }
+
+
+    public List<OcrResult> getOcrResult(){
+
+
+        File file = new File("output/20.jpeg");
+
+        try {
+            //test용
+            //InputStream inputStream = new FileInputStream("images/17.jpg");
+            InputStream inputStream = new FileInputStream("output/19.jpeg");
+            OutputStream outStream = new FileOutputStream(file);
+
+            byte[] buf = new byte[1024];
+            int len = 0;
+
+            while ((len = inputStream.read(buf)) > 0){
+                outStream.write(buf, 0, len);
+            }
+
+            outStream.close();
+            inputStream.close();
+
+            //file = imageProcessing.doImageProcessing(file.getPath(),".jpg");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        OcrUtil ocrUtil = OcrUtil.getInstance();
+        return ocrUtil.getOcrProcessingResult(file);
+        //return null;
+
+    }
+
+
+
+
+
+    public File multipartTofile(MultipartFile multipartFile){
+        File convertFile = new File("./images/",multipartFile.getOriginalFilename());
+        try {
+            multipartFile.transferTo(convertFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return convertFile;
+    }
+
 }

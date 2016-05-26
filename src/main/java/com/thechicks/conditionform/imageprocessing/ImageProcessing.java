@@ -15,20 +15,24 @@ import java.io.IOException;
 public class ImageProcessing {
 
 
-
     Mat mat;
     BufferedImage buf_image;
 
 
-    void doImageProcessing(String path, String fileExt) {
+    public File doImageProcessing(String path, String fileExt) {
         // TODO Auto-generated method stub
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-        path = "images/17.jpg";
-        fileExt = ".jpg";
+        //System.out.println(Core.NATIVE_LIBRARY_NAME);
+        //-Djava.library.path=./opencv_3.1.0
+        //System.load("/Users/Leeseolhee/Conditionform-backend/opencv_3.1.0/libopencv_java310.dylib");
+
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        //NativeLibrary.addSearchPath("libopencv_java310","./opencv_3.1.0");
+        //Runtime.getRuntime().loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
+        File file = null;
 
         try {
-
             //The input image file is not "right" if it has no columns!
             if(Imgcodecs.imread(path).cols() != 0) {
                 this.mat = Imgcodecs.imread(path);
@@ -36,7 +40,7 @@ public class ImageProcessing {
                 this.mat = em.edit();
                 MatToBufImg converter = new MatToBufImg(this.mat, fileExt);
                 this.buf_image = converter.getImage();
-                this.outputImage(this.buf_image, path);
+                file = outputImage(this.buf_image, path);
             } else {
                 throw new Exception();
             }
@@ -48,17 +52,25 @@ public class ImageProcessing {
             e.printStackTrace();
         }
 
+       return file;
+
     }
 
 
-    public void outputImage(BufferedImage buf_image, String filepath) {
+    private File outputImage(BufferedImage buf_image, String filepath) {
         String fileNm = filepath.substring(filepath.lastIndexOf("/") + 1);
 
+        File file = new File("output/" + fileNm);
+
         try {
-            ImageIO.write(buf_image, "png", new File("output/" + fileNm));
+            ImageIO.write(buf_image, "jpeg", file);
+            return file;
         } catch (IOException var5) {
             var5.printStackTrace();
+            return null;
         }
+
+
 
     }
 
