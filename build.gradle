@@ -14,7 +14,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 //apply plugin: 'eclipse-wtp'
 //apply plugin: 'war'
-apply plugin: 'spring-boot' 
+apply plugin: 'spring-boot'
 
 jar {
 	baseName = 'conditionform'
@@ -60,6 +60,8 @@ dependencies {
 
 	//For View Template
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+
+	compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 eclipse {
