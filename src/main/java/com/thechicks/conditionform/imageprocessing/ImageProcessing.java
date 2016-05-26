@@ -14,10 +14,8 @@ import java.io.IOException;
  */
 public class ImageProcessing {
 
-
     Mat mat;
-    BufferedImage buf_image;
-
+    BufferedImage bufImage;
 
     public File doImageProcessing(String path, String fileExt) {
         // TODO Auto-generated method stub
@@ -36,24 +34,21 @@ public class ImageProcessing {
             //The input image file is not "right" if it has no columns!
             if(Imgcodecs.imread(path).cols() != 0) {
                 this.mat = Imgcodecs.imread(path);
-                EditMat em = new EditMat(this.mat, this.buf_image);
+                EditMat em = new EditMat(this.mat, this.bufImage);
                 this.mat = em.edit();
                 MatToBufImg converter = new MatToBufImg(this.mat, fileExt);
-                this.buf_image = converter.getImage();
-                file = outputImage(this.buf_image, path);
+                this.bufImage = converter.getImage();
+
+                file = outputImage(this.bufImage, path);  //파일 저장
             } else {
                 throw new Exception();
             }
-
-
 
         } catch (Exception e) {
             System.out.println("There is problem with the image file name or its contents");
             e.printStackTrace();
         }
-
        return file;
-
     }
 
 
@@ -69,9 +64,6 @@ public class ImageProcessing {
             var5.printStackTrace();
             return null;
         }
-
-
-
     }
 
 

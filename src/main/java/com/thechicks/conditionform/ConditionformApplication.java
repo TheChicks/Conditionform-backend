@@ -1,5 +1,6 @@
 package com.thechicks.conditionform;
 
+import org.opencv.core.Core;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
@@ -14,4 +15,3 @@ public class ConditionformApplication extends SpringBootServletInitializer {
 		System.out.println("Server Run");
 	}
 }
-

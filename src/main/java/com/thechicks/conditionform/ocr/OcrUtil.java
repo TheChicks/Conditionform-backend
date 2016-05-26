@@ -5,6 +5,8 @@ import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -64,25 +66,10 @@ public class OcrUtil {
 
             return filter.getOcrResults();
 
-
         } catch (Exception e) {
             e.printStackTrace();
 
         }
-
         return null;
-
     }
-
-    public File multipartTofile(MultipartFile multipartFile){
-        File convertFile = new File(multipartFile.getOriginalFilename());
-        try {
-            multipartFile.transferTo(convertFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return convertFile;
-    }
-
-
 }
