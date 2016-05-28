@@ -35,12 +35,9 @@ public class Pill {
     private String precaution; //사용상주의사항
     private String medication_guide; //복약지도
 
+
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getKo_name() {
