@@ -3,9 +3,9 @@ package com.thechicks.conditionform.model;
 public class OcrResult {
     String pillInsuranceCode;
     String pillName;
-    String quantity; //일 회 복용량
-    String onedayDosage; //하루 복용 횟수
-    String totalDayDosage; //총 복용 일수
+    int quantity; //일 회 복용량
+    int onedayDosage; //하루 복용 횟수
+    int totalDayDosage; //총 복용 일수
 
     public String getPillInsuranceCode() {
         return pillInsuranceCode;
@@ -23,27 +23,29 @@ public class OcrResult {
         this.pillName = pillName;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public String getOnedayDosage() {
+    public int getOnedayDosage() {
         return onedayDosage;
     }
 
-    public void setOnedayDosage(String onedayDosage) {
+    public void setOnedayDosage(int onedayDosage) {
         this.onedayDosage = onedayDosage;
     }
 
-    public String getTotalDayDosage() {
+    public int getTotalDayDosage() {
         return totalDayDosage;
     }
 
-    public void setTotalDayDosage(String totalDayDosage) {
+    public void setTotalDayDosage(int totalDayDosage) {
         this.totalDayDosage = totalDayDosage;
     }
+
+
 }

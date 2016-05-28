@@ -73,13 +73,13 @@ public class Filter {
                 } else if (num == 10){ // 약품이름
                     ocr.setPillName(word.get(i));
                 } else if (num == 3 && count == 0){ // 약 수량
-                    ocr.setQuantity(word.get(i));
+                    ocr.setQuantity(Integer.parseInt(word.get(i)));
                     count++;
                 } else if (num == 3 && count == 1){ // 하루 섭취량
-                    ocr.setOnedayDosage(word.get(i));
+                    ocr.setOnedayDosage(Integer.parseInt(word.get(i)));
                     count++;
                 } else if (num == 3 || num == 4 && count == 2){ // 총 섭취량
-                    ocr.setTotalDayDosage(word.get(i));
+                    ocr.setTotalDayDosage(Integer.parseInt(word.get(i)));
                     count = 0;
                 }
             }
