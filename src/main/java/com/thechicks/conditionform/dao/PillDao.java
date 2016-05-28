@@ -22,6 +22,9 @@ public interface PillDao {
     @Select("SELECT * FROM pill WHERE ko_name LIKE CONCAT('%',#{searchWord},'%') OR insurance_code LIKE CONCAT(#{searchWord},'%')")
     List<Pill> getBySerchWord(String searchWord);
 
+    @Select("SELECT ko_name FROM pill WHERE insurance_code LIKE CONCAT('%', #{InsuranceCode},'%')")
+    String getPillNameByInsuranceCode(String InsuranceCode);
+
     @Select("SELECT * FROM pill WHERE id = #{id}")
     Pill getById(int id);
 

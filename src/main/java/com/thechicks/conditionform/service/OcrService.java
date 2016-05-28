@@ -1,5 +1,6 @@
 package com.thechicks.conditionform.service;
 
+import com.thechicks.conditionform.dao.PillDao;
 import com.thechicks.conditionform.imageprocessing.ImageProcessing;
 import com.thechicks.conditionform.model.OcrResult;
 import com.thechicks.conditionform.ocr.OcrUtil;
@@ -7,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.List;
 
@@ -21,6 +20,9 @@ public class OcrService {
     @Autowired
     private OcrUtil ocrUtil;
 
+    @Autowired
+    private PillDao pillDao;
+
 //    public OcrService() {
 //        imageProcessing = new ImageProcessing();
 //        ocrUtil = new OcrUtil();
@@ -29,10 +31,8 @@ public class OcrService {
     public List<OcrResult> getOcrResult(MultipartFile multipartFile){
 
         if(!multipartFile.isEmpty()){
-//            File convertFile = multipartTofile(multipartFile);  //multipartFile을 file로 변환
 
             File file = outputFile(multipartFile);  //파일 저장
-
             file = imageProcessing.doImageProcessing(file.getPath(),".jpg");  //전처리
 
             //ocr 돌리고
@@ -72,24 +72,39 @@ public class OcrService {
         //return null;
     }
 
-    //파일 저장
+    //MultipartFile을 File로 변환하고 저장
     private File outputFile(MultipartFile multipartFile)  {
 
         File outputFile = new File("images/" + multipartFile.getOriginalFilename());
-        //System.out.println(" 3 " + outputFile.getAbsoluteFile());
 
         try {
             byte[] bytes = multipartFile.getBytes();
-            BufferedOutputStream bos = new BufferedOutputStream(
-                    new FileOutputStream(outputFile));
-
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(outputFile));
             bos.write(bytes);
             bos.close();
-
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         return outputFile;
     }
+
+
+    // 후처리한 결과를 DB에 저장된 약품 이름으로 대체한다.
+    private List<OcrResult> doResultFiltering(List<OcrResult> beforeResult) {
+
+        for(int i = 0; i < beforeResult.size(); i++) {
+            if(beforeResult.get(i).getPillInsuranceCode() != null) {
+                String pillName = pillDao.getPillNameByInsuranceCode(beforeResult.get(i).getPillInsuranceCode());
+
+            } else {
+                if(beforeResult.get(i).getPillName() != null) {
+
+                }
+            }
+        }
+
+        return null;
+    }
+
 }

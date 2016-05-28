@@ -30,6 +30,10 @@ public class EditMat {
         destination = mat;
         Imgproc.threshold(mat, destination, 127, 220, Imgproc.THRESH_BINARY);
 
+
+        //Todo: 전처리코드 추가
+
+
         return destination;
     }
 }
