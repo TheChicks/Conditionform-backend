@@ -25,10 +25,10 @@ public class OcrController {
     }
 
 
-    @RequestMapping(value = "/ocr", method = RequestMethod.GET)
-    public List<OcrResult> getCcrResult() {
-        return ocrService.getOcrResult();
-    }
+//    @RequestMapping(value = "/ocr", method = RequestMethod.GET)
+//    public List<OcrResult> getCcrResult() {
+//        return ocrService.getOcrResult();
+//    }
 
 
 //    @RequestMapping(value = "/articles", method = RequestMethod.POST)
