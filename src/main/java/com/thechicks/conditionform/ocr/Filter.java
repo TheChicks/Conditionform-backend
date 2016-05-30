@@ -40,7 +40,7 @@ public class Filter {
     public void divideLineToResult(){
         for(int s=0; s<lineArrayList.size(); s++){
             StringTokenizer st = new StringTokenizer(lineArrayList.get(s), " ");
-            OcrResult ocr = new OcrResult();
+            OcrResult ocrResult = new OcrResult();
             ArrayList<String> word = new ArrayList<String>();
 
             int count = 0;
@@ -69,21 +69,21 @@ public class Filter {
             for(int i=0; i<word.size(); i++){
                 int num = checkWordType(word.get(i));
                 if(num == 9){ // 양품번호
-                    ocr.setPillInsuranceCode(word.get(i));
+                    ocrResult.getPill().setInsurance_code(word.get(i));
                 } else if (num == 10){ // 약품이름
-                    ocr.setPillName(word.get(i));
+                    ocrResult.getPill().setKo_name(word.get(i));
                 } else if (num == 3 && count == 0){ // 약 수량
-                    ocr.setQuantity(Integer.parseInt(word.get(i)));
+                    ocrResult.setQuantity(Integer.parseInt(word.get(i)));
                     count++;
                 } else if (num == 3 && count == 1){ // 하루 섭취량
-                    ocr.setOnedayDosage(Integer.parseInt(word.get(i)));
+                    ocrResult.setOnedayDosage(Integer.parseInt(word.get(i)));
                     count++;
                 } else if (num == 3 || num == 4 && count == 2){ // 총 섭취량
-                    ocr.setTotalDayDosage(Integer.parseInt(word.get(i)));
+                    ocrResult.setTotalDayDosage(Integer.parseInt(word.get(i)));
                     count = 0;
                 }
             }
-            ocrResults.add(ocr);
+            ocrResults.add(ocrResult);
         }
     }
 
@@ -146,7 +146,7 @@ public class Filter {
 
     public void print(){
         for(int i=0; i<ocrResults.size(); i++){
-            System.out.println(ocrResults.get(i).getPillInsuranceCode()+ ", " + ocrResults.get(i).getPillName() + ", " + ocrResults.get(i).getQuantity() + ", " + ocrResults.get(i).getOnedayDosage() + ", " + ocrResults.get(i).getTotalDayDosage());
+            System.out.println(ocrResults.get(i).getPill().getInsurance_code()+ ", " + ocrResults.get(i).getPill().getKo_name() + ", " + ocrResults.get(i).getQuantity() + ", " + ocrResults.get(i).getOnedayDosage() + ", " + ocrResults.get(i).getTotalDayDosage());
         }
     }
 }
