@@ -36,4 +36,9 @@ public class PillController {
         return pills;
     }
 
+    @RequestMapping("/pills/last")
+    public void getLastPillIndex()  {
+        System.out.println(pillService.getByLastId());
+    }
+
 }
