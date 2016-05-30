@@ -1,49 +1,35 @@
 package com.thechicks.conditionform;
 
-import com.thechicks.conditionform.cotroller.OcrController;
-import com.thechicks.conditionform.service.OcrService;
-import org.apache.log4j.Logger;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.context.WebApplicationContext;
-
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 /**
  * Created by Leeseolhee on 2016. 5. 19..
  */
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = ConditionformApplication.class)
-@WebAppConfiguration
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@SpringApplicationConfiguration(classes = ConditionformApplication.class)
+//@WebAppConfiguration
 
 public class ArticlesContollerTests {
 
-    Logger logger = Logger.getLogger(this.getClass());
-
-    private MockMvc mockMvc;
-
-    @Autowired
-    private OcrController ocrController;
-
-    @Autowired
-    WebApplicationContext wac;
-
-    @Autowired
-    private OcrService ocrService;
-
-    @Before
-    public  void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
-        mockMvc = webAppContextSetup(wac).build();
-    }
+//    Logger logger = Logger.getLogger(this.getClass());
+//
+//    private MockMvc mockMvc;
+//
+//    @Autowired
+//    private OcrController ocrController;
+//
+//    @Autowired
+//    WebApplicationContext wac;
+//
+//    @Autowired
+//    private OcrService ocrService;
+//
+//    @Before
+//    public  void setUp() throws Exception {
+//        MockitoAnnotations.initMocks(this);
+//        mockMvc = webAppContextSetup(wac).build();
+//    }
 
 //    @Test
 //    public void testNewArticle() throws Exception {
