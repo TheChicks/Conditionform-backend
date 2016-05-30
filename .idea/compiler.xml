@@ -21,6 +21,8 @@
     <bytecodeTargetLevel>
       <module name="Conditionform-backend_main" target="1.8" />
       <module name="Conditionform-backend_test" target="1.8" />
+      <module name="PillCheck-backend_main" target="1.8" />
+      <module name="PillCheck-backend_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
