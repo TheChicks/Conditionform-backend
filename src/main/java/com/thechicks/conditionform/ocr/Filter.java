@@ -70,8 +70,10 @@ public class Filter {
                 int num = checkWordType(word.get(i));
                 if(num == 9){ // 양품번호
                     ocrResult.getPill().setInsurance_code(word.get(i));
-                } else if (num == 10){ // 약품이름
-                    ocrResult.getPill().setKo_name(word.get(i));
+                }else if (num == 10 && (i == 0 || i == 1 || i == 2)){ // 약품이름
+                    String temp = pillnameFiltering(word.get(i));   // 약품이름에 숫자가 포함되면 그 앞만 약물이름이로 설정      // 여기 고침
+                    if(!temp.equals(""))                                                      // 여기 고침
+                        ocrResult.getPill().setKo_name(temp);                                                   // 여기 고침
                 } else if (num == 3 && count == 0){ // 약 수량
                     ocrResult.setQuantity(Integer.parseInt(word.get(i)));
                     count++;
@@ -149,4 +151,29 @@ public class Filter {
             System.out.println(ocrResults.get(i).getPill().getInsurance_code()+ ", " + ocrResults.get(i).getPill().getKo_name() + ", " + ocrResults.get(i).getQuantity() + ", " + ocrResults.get(i).getOnedayDosage() + ", " + ocrResults.get(i).getTotalDayDosage());
         }
     }
+
+    public String pillnameFiltering(String str){      // 약품이름이 문자로만 이루어져 있는지? 체크하는 함수         // 여기 고침 새로 추가
+        boolean includeNum = false;
+        int i;
+        for(i=0; i<str.length(); i++){
+            String temp = "";
+            temp += str.charAt(i);
+            try{
+                int num = Integer.parseInt(temp);
+                includeNum = true;
+                break;      // 약품이름 안에 숫자가 포함되어있다면 for문을 빠져나간다.
+            } catch(NumberFormatException e){
+                if(temp.equals("(") || temp.equals("내")|| temp.equals("복")|| temp.equals(")")){
+                    includeNum = true;
+                    break;
+                }
+            }
+        }
+        if(includeNum)   // 숫자 포함 약품이름
+            return str.substring(0, i);
+        else
+            return str;
+    }
+
+
 }
