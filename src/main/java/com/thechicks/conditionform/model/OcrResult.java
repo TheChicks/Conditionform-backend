@@ -7,8 +7,12 @@ public class OcrResult {
     int onedayDosage; //하루 복용 횟수
     int totalDayDosage; //총 복용 일수
 
-    public OcrResult() {
+    public OcrResult(){
         pill = new Pill();
+        pill.setInsurance_code("0");
+        quantity = 0;
+        onedayDosage = 0;
+        totalDayDosage = 0;
     }
 
     public Pill getPill() {
