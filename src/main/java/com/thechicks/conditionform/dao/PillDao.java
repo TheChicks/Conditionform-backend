@@ -19,15 +19,17 @@ public interface PillDao {
     @Select("SELECT * FROM pill")
     List<Pill> findAll();
 
-    @Select("SELECT * FROM pill WHERE ko_name LIKE CONCAT('%',#{searchWord},'%') OR insurance_code LIKE CONCAT(#{searchWord},'%')")
-    List<Pill> getBySerchWord(String searchWord);
+    @Select("SELECT * FROM pill WHERE ko_name LIKE CONCAT(#{searchWord},'%') OR insurance_code LIKE CONCAT(#{searchWord},'%')")
+    List<Pill> getBySearchWord(String searchWord);
 
-    @Select("SELECT ko_name FROM pill WHERE ko_name LIKE CONCAT('%', #{pillName},'%')")
-    List<String> getPillNameByPillNamePart(String pillName);
+    @Select("SELECT insurance_code FROM pill WHERE ko_name = #{pillName}")
+    List<String> getInsuranceCodeByPillName(String pillName);
+
+    @Select("SELECT * FROM pill WHERE ko_name LIKE CONCAT('%', #{pillName},'%')")
+    List<Pill> getPillByPillNamePart(String pillName);
 
     @Select("SELECT ko_name FROM pill WHERE insurance_code LIKE CONCAT('%', #{insuranceCode},'%')")
     List<String> getPillNameByInsuranceCodePart(String insuranceCode);
-
 
     @Select("SELECT * FROM pill WHERE id = #{id}")
     Pill getById(int id);
