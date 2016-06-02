@@ -118,4 +118,29 @@ public class PillNameReplacerTests {
     }
 
 
+    @Test
+    public void pillNameReplacerTest4() {
+
+        String []code = {"0", "0", "542902490"};
+        String []name = {"솔레톤정", "키", "하"};
+        List<OcrResult> ocrResultList = new ArrayList<>();
+
+        for(int i = 0; i < code.length; i++) {
+            OcrResult ocrResult = new OcrResult();
+            Pill pill = new Pill();
+            pill.setInsurance_code(code[i]);
+            pill.setKo_name(name[i]);
+            ocrResult.setPill(pill);
+            ocrResultList.add(ocrResult);
+        }
+
+        ocrResultList = ocrService.doResultFilitering(ocrResultList);
+
+
+        for(int i = 0; i < code.length; i++)
+            System.out.println( (i+1) + " : " + ocrResultList.get(i).getPill().getInsurance_code() + ", "+ocrResultList.get(i).getPill().getKo_name());
+
+
+    }
+
 }
