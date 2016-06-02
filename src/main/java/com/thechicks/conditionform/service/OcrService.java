@@ -128,11 +128,16 @@ public class OcrService {
             for (String splitedPillName : splitedPillNameList) {
 
                 //자른 약이름으로 DB에 검색한후 중복을 제거한다.
-                List<String> searchedPillNameList = new ArrayList<>(new HashSet<>(pillDao.getPillNameByPillNamePart(splitedPillName)));
+                List<Pill> searchedPill = pillDao.getPillByPillNamePart(splitedPillName);
+
+                List<String> searchedPillNameList = new ArrayList<>(new HashSet<>());
+
+                for(int i = 0; i < searchedPill.size(); i++) {
+                    searchedPillNameList.add(searchedPill.get(i).getKo_name());
+                }
 
                 for (String searchedPillName : searchedPillNameList) { // 자른 약 이름과 검색한 약 이름의 단어 사이의 거리를 구함.
                     splitedPillName = searchedPillName.replaceAll("[0-9]", "").replaceAll("[a-z]", "").replaceAll("[A-Z]", "");
-                    System.out.println(splitedPillName);
                     candidateList.add(new Candidate(searchedPillName, splitedPillName, pillNameReplacer.getDistance(searchedPillName, splitedPillName)));
                 }
 
@@ -144,7 +149,15 @@ public class OcrService {
 
             //최종 후보를 가져온다.
             if (candidateList.size() != 0) {
-                beforeResult.setKo_name(pillNameReplacer.getFliteredPillName(pillName, candidateList));
+
+                String selectedPillName = pillNameReplacer.getFliteredPillName(pillName, candidateList);
+                beforeResult.setKo_name(selectedPillName);
+
+                //DB의 약 이름으로 바꼈고 보험코드가 없을 때
+                if(beforeResult.getInsurance_code().equals("0") && !selectedPillName.equals(pillName)) {
+                    List<String> insuranceCode = pillDao.getInsuranceCodeByPillName(selectedPillName);
+                    beforeResult.setInsurance_code(insuranceCode.get(0));
+                }
             }
         }
 
@@ -156,25 +169,18 @@ public class OcrService {
 
     private Pill doResultFilteringByInsuranceCode(Pill beforeResult) { // 후처리한 결과를 DB에 저장된 약품 이름으로 대체한다.
 
-
-        //PillNameReplacer pillNameReplacer = new PillNameReplacer();
-
         String insuranceCode = beforeResult.getInsurance_code();
-
 
 
         if (!insuranceCode.equals("0")) {
             String firstCharacter = insuranceCode.substring(0);
 
-
-            if (!firstCharacter.equals("6") && firstCharacter.matches("[-+]?\\d*\\.?\\d+")) { //6이 아니고 숫자일때
+            if (!firstCharacter.equals("6") && firstCharacter.matches("[-+]?\\d*\\.?\\d+"))  //6이 아니고 숫자일때
                 insuranceCode = "6" + insuranceCode.substring(1, insuranceCode.length());
-            }
 
-
-            if(firstCharacter.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) { //츤71802840과 같을 때
+            if(firstCharacter.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*"))  //츤71802840과 같을 때
                 insuranceCode  = "6" + insuranceCode.substring(1, insuranceCode.length());
-            }
+
         }
 
         // 보험코드로 DB에 저장된 약 이름을 검색한다.
